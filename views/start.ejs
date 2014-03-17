@@ -17,7 +17,7 @@
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
 	<link href='/css/dogestarter.css?aa' rel='stylesheet' type='text/css'>
 
-	</head>
+</head>
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-custom">
 
@@ -25,15 +25,15 @@
 	<header id="header" class="container content-section" style="padding-top:100px;">
 		<div class="col-md-12">
 			<img src="/assets/dogecoin-300.png" />
-			<h1>DOGESTARTER</h1>
-			<p>An open-source node.js Dogecoin crowdfunding app by the team behind <a href="//duelyst.com">DUELYST</a> and powered by DogeAPI</p>
+			<h1 style="background-image:url(<%= content.project.title_background_image_url %>)"><%= content.project.title %></h1>
+			<p><%- content.project.short_description %></p>
 		</div>
 	</header>
 
 	<section id="body" class="container content-section">
 		<div id="content_area" class="col-md-8">
 			<div id="video">
-				<iframe width="729" height="400" src="//www.youtube.com/embed/000al7ru3ms" frameborder="0" allowfullscreen></iframe>
+				<%- content.project.youtube_embed_code %>
 			</div>
 			<div id="share_utilities">
 				<a href="javascript:$('#embed_modal').modal();"><i class="fa fa-code"></i> embed</a>
@@ -44,14 +44,12 @@
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rhoncus non dui sed ullamcorper. Maecenas vestibulum augue in sem rhoncus tincidunt. Fusce egestas.</p>
 			<h1 class="faq">FAQ</h1>
 			<ol class="faq-list">
-				<li>
-					<h4><a href="javascript:void" class="faq-link"><i class="fa fa-caret-right"></i> Question?</a></h4>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rhoncus non dui sed ullamcorper. Maecenas vestibulum augue in sem rhoncus tincidunt. Fusce egestas.</p>
-				</li>
-				<li>
-					<h4><a href="javascript:void" class="faq-link"><i class="fa fa-caret-right"></i> Question?</a></h4>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rhoncus non dui sed ullamcorper. Maecenas vestibulum augue in sem rhoncus tincidunt. Fusce egestas.</p>
-				</li>
+				<% for (var i=0; i<content.faq.length; i++) { %>
+					<li>
+						<h4><a href="javascript:void" class="faq-link"><i class="fa fa-caret-right"></i> <%= content.faq[i].question %></a></h4>
+						<p><%= content.faq[i].answer %></p>
+					</li>
+				<% } %>
 			</ol>
 		</div>
 		<div id="pledge_area" class="col-md-4">
@@ -67,38 +65,33 @@
 				</a>
 				<p>This project will only be funded if at least Ð<%= goal %> is pledged by Shibe's.</p>
 				<div id="created_by">
-					<img class="avatar" src="https://lh3.googleusercontent.com/-WR9Ee9viqpg/AAAAAAAAAAI/AAAAAAAAAAA/1ueQr-wvH7Y/photo.jpg" />
+					<img class="avatar" src="<%= content.project.created_by.avatar_url %>" />
 					<div class="project-by">project by</div>
-					<div class="name">Shibetoshi Nakemoto</div>
-					<a href="#">contact me</a>
+					<div class="name"><%= content.project.created_by.name %></div>
+					<a href="mailto:<%= content.project.created_by.contact_email %>">contact me</a>
 					<ul class="utility-links">
-						<li><a href="#"><i class="fa fa-globe"></i> website.com</a></li>
-						<li><a href="#"><i class="fa fa-globe"></i> website.com</a></li>
+						<% for (var i=0; i<content.project.created_by.links.length; i++) { %>
+							<li><a href="<%= content.project.created_by.links[i].url %>"><i class="fa <%= content.project.created_by.links[i].icon %>"></i> <%= content.project.created_by.links[i].title %></a></li>
+						<% } %>
 					</ul>
 				</div>
 				<ol id="pledge_tiers">
-					<li>
-						<a href="javascript:showModal(250)">
-							<h3 class="tier-title"><span class="pledge-amount">250</span>Ð - Supporter Shibe</h3>
-							<h4 class="tier-backers">
-								<span><%= (backer_counts_rows.length > 0) ? backer_counts_rows[0]["backer_count"] : 0 %> Shibes</span>
-								<span class="limited">limited (16 left of 1000)</span>
-							</h4>
-							<p class="tier-description">Such tier. Much reward. Wow! Support now plz. So amaze.</p>
-							<p class="small">Estimated delivery: Dec 2014</p>
-						</a>
-					</li>
-					<li>
-						<a href="javascript:showModal(500)">
-							<h3 class="tier-title"><span class="pledge-amount">500</span>Ð - Supporter Shibe</h3>
-							<h4 class="tier-backers">
-								<span><%= (backer_counts_rows.length > 1) ? backer_counts_rows[1]["backer_count"] : 0 %> Shibes</span>
-								<span class="limited">limited (16 left of 1000)</span>
-							</h4>
-							<p class="tier-description">Such tier. Much reward. Wow! Support now plz. So amaze.</p>
-							<p class="small">Estimated delivery: Dec 2014</p>
-						</a>
-					</li>
+					<% for (var i=0; i<content.tiers.length; i++) { %>
+					<% var backer_count = (backer_counts_rows.length > i) ? backer_counts_rows[i]["backer_count"] : 0; %>
+						<li>
+							<a href="javascript:showModal(250)">
+								<h3 class="tier-title"><span class="pledge-amount"><%= content.tiers[i].amount %></span>Ð - <%= content.tiers[i].name %></h3>
+								<h4 class="tier-backers">
+									<span><%= backer_count %> Shibes</span>
+									<% if (content.tiers[i].backer_limit != undefined && content.tiers[i].backer_limit > 0) { %>
+										<span class="limited">limited (<%= content.tiers[i].backer_limit - backer_count %> left of <%= content.tiers[i].backer_limit %>)</span>
+									<% } %>
+								</h4>
+								<p class="tier-description"><%= content.tiers[i].description %></p>
+								<p class="small"><%= content.tiers[i].fine_print %></p>
+							</a>
+						</li>
+					<% } %>
 				</ol>
 			</div>
 		</div>
@@ -153,7 +146,7 @@
 	  			</div>
 	      	</div>
 	      	<div class="step-2 hide">
-		        <p>To complete your pledge, please send <strong class="dogecoin-pledge-amount">######</strong> Ð to the following address:</p>
+		        <p>To complete your pledge, please send <strong class="dogecoin-pledge-amount">...</strong> Ð to the following address:</p>
 				<img id="pledge_wallet_qrcode" />
 		        <div class="panel panel-default">
 		        <div class="panel-heading">Wallet Address</div>

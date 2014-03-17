@@ -11,6 +11,7 @@ var settings = require('./settings.js')
 var mandrill = require('mandrill-api/mandrill');
 var qrcode=require('qrcode-js');
 var cache = require('memory-cache');
+var content = require('./content.json');
 
 var dogeAPI = new DogeAPI({
 							apikey: settings.dogeApiKey,
@@ -74,7 +75,7 @@ app.get('/', function(req, res) {
 	} else {
 
 		console.log("rendering START from DB");
-		
+
 		postgres_client.query('SELECT COUNT(*) as pledge_count FROM pledges',function(error, pledge_count_result) {
 			if(error) {
 				console.log(error);
@@ -87,7 +88,8 @@ app.get('/', function(req, res) {
 					if (days_remaining < 0)
 						days_remaining = 0;
 
-					renderData = { 
+					renderData = {
+						content: content,
 						backer_counts_rows: backer_counts_result.rows,
 						pledge_count: pledge_count_result.rows[0].pledge_count,
 						start_date: settings.startDate,
@@ -136,6 +138,7 @@ app.get('/embed', function(req, res) {
 						days_remaining = 0;
 
 					renderData = { 
+						content: content,
 						total_pledged:result.rows[0]["amount"] || 0,
 						start_date: settings.startDate,
 						days_remaining: days_remaining,
