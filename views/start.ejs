@@ -24,9 +24,14 @@
 
 	<header id="header" class="container content-section" style="padding-top:100px;">
 		<div class="col-md-12">
-			<img src="/assets/dogecoin-300.png" />
+			<img id="dogecoin_image" src="/assets/dogecoin-300.png" />
 			<h1 <% if (content.project.title_background_image_url) { %>class="with-image"<% } %> style="background-image:url(<%= content.project.title_background_image_url %>)"><%= content.project.title %></h1>
 			<p><%- content.project.short_description %></p>
+			<% if (content.project.include_powered_by_dogestarter_in_title) { %>
+				<div class="powered-by">
+					powered by <img src="/assets/logo_small.png" width="90" />
+				</div>
+			<% } %>
 		</div>
 	</header>
 
@@ -96,6 +101,14 @@
 			</div>
 		</div>
 	</section>
+
+	<!--
+	<section class="container">
+		<div class="powered-by" style="margin:10px 0px 90px 0;">
+			powered by <img src="/assets/logo_small.png" width="90" />
+		</div>
+	</section>
+	-->
 
 	<div id="example" class="text-center">
 		<h4>real project example:</h4>

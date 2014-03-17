@@ -11,7 +11,7 @@ a:hover { text-decoration:none; }
 #header {
 	text-align:center;
 	margin-bottom:50px;
-	img {
+	img#dogecoin_image {
 		width:80px;
 		height:80px;
 	}
@@ -194,6 +194,21 @@ footer {
 	font-size:0.75em;
 	text-align:center;
 	padding:50px 0 0 0;
+}
+
+div.powered-by {
+	font-size:13px;
+	text-transform:uppercase;
+	clear:left;
+	text-align:center;
+	color:#ccc;
+	&.right {
+		text-align:right;
+	}
+	img {
+		vertical-align:baseline;
+		margin-bottom:1px;
+	}
 }
 
 #pledge_modal {
