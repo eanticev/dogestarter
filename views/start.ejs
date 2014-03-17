@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Duelyst</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="icon" type="image/gif" href="http://duelyst.com/favicon.gif">
+	<link rel="shortcut icon" href="http://duelyst.com/favicon.ico" />
+
+	<!-- Bootstrap Core CSS -->
+	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<!-- Font Awesome + Fonts -->
+	<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+	<link href='/css/dogestarter.css?aa' rel='stylesheet' type='text/css'>
+
+	</head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-custom">
+
+
+	<header id="header" class="container content-section" style="padding-top:100px;">
+		<div class="col-md-12">
+			<img src="/assets/dogecoin-300.png" />
+			<h1>DOGESTARTER</h1>
+			<p>An open-source node.js Dogecoin crowdfunding app by the team behind <a href="//duelyst.com">DUELYST</a> and powered by DogeAPI</p>
+		</div>
+	</header>
+
+	<section id="body" class="container content-section">
+		<div id="content_area" class="col-md-8">
+			<div id="video">
+				<iframe width="729" height="400" src="//www.youtube.com/embed/000al7ru3ms" frameborder="0" allowfullscreen></iframe>
+			</div>
+			<div id="share_utilities">
+				<a href="#"><i class="fa fa-code"></i> embed</a>
+			</div>
+			<h1>Such Project. Much Creative.</h1>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rhoncus non dui sed ullamcorper. Maecenas vestibulum augue in sem rhoncus tincidunt. Fusce egestas ornare faucibus. Proin leo purus, semper quis condimentum ac, adipiscing nec est. Nulla facilisi. Duis tincidunt, elit ac gravida scelerisque, metus velit mattis velit, eu sagittis velit dolor vitae augue. Integer mauris sem, tristique non purus in, volutpat tincidunt quam. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec consectetur vestibulum arcu, et consequat ipsum gravida vel. Nam posuere mauris at nulla rutrum egestas.</p>
+			<h2>Very Subtitle.</h2>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rhoncus non dui sed ullamcorper. Maecenas vestibulum augue in sem rhoncus tincidunt. Fusce egestas.</p>
+			<h1 class="faq">FAQ</h1>
+			<ol class="faq-list">
+				<li>
+					<h4><a href="javascript:void" class="faq-link"><i class="fa fa-caret-right"></i> Question?</a></h4>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rhoncus non dui sed ullamcorper. Maecenas vestibulum augue in sem rhoncus tincidunt. Fusce egestas.</p>
+				</li>
+				<li>
+					<h4><a href="javascript:void" class="faq-link"><i class="fa fa-caret-right"></i> Question?</a></h4>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rhoncus non dui sed ullamcorper. Maecenas vestibulum augue in sem rhoncus tincidunt. Fusce egestas.</p>
+				</li>
+			</ol>
+		</div>
+		<div id="pledge_area" class="col-md-4">
+			<div>
+				<div id="backer_stats">
+					<h3><strong><%= pledge_count %></strong> Shibes</h3>
+					<h3><strong>Ð<span class="pledged-so-far">...</span></strong> pledged of Ð<%= goal %> goal</h3>
+					<h3><strong><%= days_remaining %></strong> days to go</h3>
+				</div>
+				<a id="pledge" href="javascript:showModal(250)">
+					<span>Make Pledge PLZ</span>
+					<span class="minimum">250 Ð minimum</span>
+				</a>
+				<p>This project will only be funded if at least Ð<%= goal %> is pledged by Shibe's.</p>
+				<div id="created_by">
+					<img class="avatar" src="https://lh3.googleusercontent.com/-WR9Ee9viqpg/AAAAAAAAAAI/AAAAAAAAAAA/1ueQr-wvH7Y/photo.jpg" />
+					<div class="project-by">project by</div>
+					<div class="name">Shibetoshi Nakemoto</div>
+					<a href="#">contact me</a>
+					<ul class="utility-links">
+						<li><a href="#"><i class="fa fa-globe"></i> website.com</a></li>
+						<li><a href="#"><i class="fa fa-globe"></i> website.com</a></li>
+					</ul>
+				</div>
+				<ol id="pledge_tiers">
+					<li>
+						<a href="javascript:showModal(250)">
+							<h3 class="tier-title"><span class="pledge-amount">250</span>Ð - Supporter Shibe</h3>
+							<h4 class="tier-backers">
+								<span><%= (backer_counts_rows.length > 0) ? backer_counts_rows[0]["backer_count"] : 0 %> Shibes</span>
+								<span class="limited">limited (16 left of 1000)</span>
+							</h4>
+							<p class="tier-description">Such tier. Much reward. Wow! Support now plz. So amaze.</p>
+							<p class="small">Estimated delivery: Dec 2014</p>
+						</a>
+					</li>
+					<li>
+						<a href="javascript:showModal(500)">
+							<h3 class="tier-title"><span class="pledge-amount">500</span>Ð - Supporter Shibe</h3>
+							<h4 class="tier-backers">
+								<span><%= (backer_counts_rows.length > 1) ? backer_counts_rows[1]["backer_count"] : 0 %> Shibes</span>
+								<span class="limited">limited (16 left of 1000)</span>
+							</h4>
+							<p class="tier-description">Such tier. Much reward. Wow! Support now plz. So amaze.</p>
+							<p class="small">Estimated delivery: Dec 2014</p>
+						</a>
+					</li>
+				</ol>
+			</div>
+		</div>
+	</section>
+
+	<div id="example" class="text-center">
+		<h4>real project example:</h4>
+		<iframe src="/embed" frameborder="0" height="400" scrolling="no" width="220"></iframe>
+	</div>
+
+	<footer>
+		<p>A project by the team behind <a href="//duelyst.com">DUELYST</a></p>
+	</footer>
+
+	<div id="pledge_modal" class="modal fade">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	        <h4 class="modal-title">Much Pledge</h4>
+	      </div>
+	      <div class="modal-body" style="min-height:175px;">
+	      	<div id="loading" class="hide">
+	      		<div class="spinner"></div>
+	      		<p>please wait a few moments while we generate a wallet address...</p>
+	      	</div>
+	      	<div class="step-1">
+		        <form class="form-horizontal" role="form">
+	  				<div id="form_group_email" class="form-group">
+	  					<label for="email_input" class="col-sm-2 control-label">Email</label>
+					    <div class="col-sm-10">
+					      <input type="email" class="form-control" id="email_input" placeholder="Email">
+					      <span class="help-block">Where should we send your reward?</span>
+					    </div>
+					</div>
+	  				<div class="form-group">
+	  					<label for="amount" class="col-sm-2 control-label">Amount</label>
+					    <div class="col-sm-10">
+					    	<div class="input-group">
+	  							<span class="input-group-addon">Ð</span>
+					      		<input type="text" class="form-control" id="amount" placeholder="Amount">
+					      		<input type="hidden" id="pledge_tier" />
+					      	</div>
+					    </div>
+	  				</div>
+	  			</form>
+	  			<div class="modal-reward-block">
+	  				<div>
+	  					<h4 class="tier-title">250 Ð Supporter Shibe - reward:</h4>
+	  					<p class="tier-description">Such tier. Much reward. Wow! Support now plz. So amaze.</p>
+	  				</div>
+	  			</div>
+	      	</div>
+	      	<div class="step-2 hide">
+		        <p>To complete your pledge, please send <strong class="dogecoin-pledge-amount">######</strong> Ð to the following address:</p>
+				<img id="pledge_wallet_qrcode" />
+		        <div class="panel panel-default">
+		        <div class="panel-heading">Wallet Address</div>
+				  <div id="pledge_wallet_address" class="panel-body">
+				    42423vevji52jg5vn2495g459jg524g24hg95h
+				  </div>
+				</div>
+				<p><small>We will send you a confirmation email when we validate that the transaction went through.</small></p>
+	      	</div>
+	      </div>
+	      <div class="modal-footer">
+	        <button id="submit_email" type="button" class="btn btn-primary">PLEDGE</button>
+	        <button id="done_button" type="button" data-dismiss="modal"  class="btn hide btn-primary">Done</button>
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
+	<!-- LIBS / CDN VERSION -->
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+
+	<!-- LOCAL JS -->
+	<script src="/js/spin.js"></script>
+
+	<script>
+
+	$(document).ready(function() {
+
+		$.get("/amount").done(function(data) {
+			var dogecoinPledgeBalance = data["balance"];
+			console.log("PLEDGE balance retrieved: "+dogecoinPledgeBalance);
+			$(".pledged-so-far").text(dogecoinPledgeBalance);
+		}).fail(function() {
+		});
+
+		$("a.faq-link").click(function() {
+			$(this).parents("li:first").find("p:first").toggle();
+		});
+		
+		new Spinner({color:'#000', lines: 12}).spin($("#dogecoin_pledge_modal .spinner").get(0));
+
+		$("#submit_email").click(function() {
+
+			var email = $("#email_input").val();
+			var amount = $("#amount").val();
+			var tier = $("#pledge_tier").val();
+
+			var isValid = isEmail(email);
+
+			if (isValid) {
+
+				$("#pledge_modal #loading").removeClass("hide").show();
+				$("#pledge_modal .step-1").hide();
+
+				$.post( "/pledge", {email:email,amount:amount,tier:tier}, function(data, textStatus, jqXHR) {
+					
+					console.log("PLEDGE address generated success");
+					console.log(data);
+
+				}).done(function(data) {
+
+					$("#submit_email").hide();
+					$("#done_button").removeClass("hide").show();
+					$("#pledge_modal #loading").hide();
+					$("#pledge_modal .step-2").removeClass("hide").show();
+					$("#pledge_wallet_address").text(data.address);
+					$("#pledge_wallet_qrcode").attr("src",data.qrcode);
+
+				}).fail(function() {
+
+					alert( "error setting up pledge!" );
+
+				});
+
+			} else {
+
+				$("#form_group_email").addClass("has-error");
+			}
+
+		});
+
+		$("#amount").keyup(function() {
+			var val = parseFloat($(this).val());
+			updateModalTier(val);
+		})
+	});
+
+	function updateModalTier(amount) {
+		var allTiers = $("#pledge_tiers li .pledge-amount");
+		$(".modal-reward-block > div").css("visibility","hidden");
+		for (var i=allTiers.length-1; i>=0; i--) {
+			var tierPrice = parseFloat($(allTiers[i]).text());
+			if (tierPrice <= amount) {
+
+				console.log("Matched pledge tier: "+(i+1));
+
+				var title = $(allTiers[i]).parents("li:first").find(".tier-title").text();
+				var description = $(allTiers[i]).parents("li:first").find(".tier-description").text();
+				$("div.modal-reward-block .tier-title").text(title);
+				$("div.modal-reward-block .tier-description").text(description);
+				$(".modal-reward-block > div").css("visibility","visible");
+
+				$("#pledge_tier").val(i+1);
+
+				break;
+			}
+		}
+	}
+
+	function showModal(amount) {
+		$('#pledge_modal').modal();
+		$('#pledge_modal #amount').val(amount);
+		$('#pledge_modal .dogecoin-pledge-amount').text(amount);
+		updateModalTier(amount);
+		setTimeout("$('#pledge_modal #email_input').focus();",500);
+	}
+
+	function isEmail(email) {
+	  var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+	  return regex.test(email);
+	}
+
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Duelyst</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="icon" type="image/gif" href="http://duelyst.com/favicon.gif">
+	<link rel="shortcut icon" href="http://duelyst.com/favicon.ico" />
+
+	<!-- Bootstrap Core CSS -->
+	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<!-- Font Awesome + Fonts -->
+	<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+	</head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-custom">
+
+
+	<section id="pledges" class="container content-section" style="padding-top:100px;">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<!-- Default panel contents -->
+				<div class="panel-heading">Panel heading</div>
+				<div class="panel-body">
+					<p>Total validated pledges so far: <strong class="pledged-so-far">...</strong></p>
+				</div>
+
+				<table class="table">
+				  <thead>
+				  	<tr>
+				  		<th>email</th>
+				  		<th>wallet address</th>
+				  		<th>amount</th>
+				  		<th>tier</th>
+				  		<th>created at</th>
+				  	</tr>
+				  </thead>
+				  <tbody>
+				  	<% for(i in rows) {%>
+					  	<tr>
+					  		<td><%= rows[i].email %></td>
+					  		<td><%= rows[i].wallet_address %></td>
+					  		<td><%= rows[i].amount %></td>
+					  		<td><%= rows[i].tier %></td>
+					  		<td><%= rows[i].created_at %></td>
+					  	</tr>
+					<% } %>
+				  </tbody>
+				</table>
+			</div>
+		</div>
+	</section>
+
+	<!-- LIBS / CDN VERSION -->
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+
+	<script>
+
+	$(document).ready(function() {
+		$.get("/balance").done(function(data) {
+			var dogecoinPledgeBalance = data["balance"];
+			console.log("PLEDGE balance retrieved: "+dogecoinPledgeBalance);
+			$(".pledged-so-far").text(dogecoinPledgeBalance);
+		}).fail(function() {
+		});
+	});
+
+	</script>
+
+</body>
+</html>

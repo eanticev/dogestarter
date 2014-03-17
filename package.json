@@ -1,0 +1,32 @@
+{
+  "name": "duelyst-dogecoin-rest-server",
+  "version": "0.0.1",
+  "description": "DUELYST Dogecoin API",
+  "main": "server.js",
+  "dependencies": {
+    "logfmt":"*",
+    "express": "3.x",
+    "ejs":"*",
+    "dogeapi":"git+https://1b549a5248bd727111f7cbd6c93f197bc6182d14:x-oauth-basic@github.com/brutalhonesty/dogeapi.js.git",    
+    "pg": "2.x",
+    "db-migrate":"*",
+    "node-sass":"*",
+    "mandrill-api":"*",
+    "qrcode-js":"*"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/88dots/duelyst.com.git"
+  },
+  "author": "Emil Anticevic",
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/88dots/duelyst.com/issues"
+  },
+  "engines": {
+    "node": "0.10.x"
+  }
+}
