@@ -17,11 +17,14 @@ a:hover { text-decoration:none; }
 	}
 	h1 {
 		margin:30px auto 20px auto;
-		overflow:hidden;
-		text-indent:-999999px;
-		background:url(/assets/logo_small.png);
-		width:329px;
-		height:36px;
+
+		&.with-image {
+			overflow:hidden;
+			text-indent:-999999px;
+			background:url(/assets/logo_small.png);
+			width:329px;
+			height:36px;
+		}
 	}
 }
 

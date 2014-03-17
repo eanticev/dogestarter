@@ -25,7 +25,7 @@
 	<header id="header" class="container content-section" style="padding-top:100px;">
 		<div class="col-md-12">
 			<img src="/assets/dogecoin-300.png" />
-			<h1 style="background-image:url(<%= content.project.title_background_image_url %>)"><%= content.project.title %></h1>
+			<h1 <% if (content.project.title_background_image_url) { %>class="with-image"<% } %> style="background-image:url(<%= content.project.title_background_image_url %>)"><%= content.project.title %></h1>
 			<p><%- content.project.short_description %></p>
 		</div>
 	</header>
