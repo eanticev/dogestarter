@@ -86,7 +86,7 @@ app.get('/embed', function(req, res) {
 			postgres_client.query('SELECT SUM(amount) as amount FROM pledges',function(error, result) {
 
 				res.render("embed", { 
-					total_pledged:result.rows[0]["amount"],
+					total_pledged:result.rows[0]["amount"] || 0,
 					start_date: settings.startDate,
 					days_remaining: Math.ceil(((settings.campaign.startDate + settings.campaign.durationDayCount*24*60*60*1000) - new Date()) / (1000*60*60*24)),
 					goal: settings.campaign.goal

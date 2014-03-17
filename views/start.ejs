@@ -185,7 +185,7 @@
 	$(document).ready(function() {
 
 		$.get("/amount").done(function(data) {
-			var dogecoinPledgeBalance = data["balance"];
+			var dogecoinPledgeBalance = data["balance"] || 0;
 			console.log("PLEDGE balance retrieved: "+dogecoinPledgeBalance);
 			$(".pledged-so-far").text(dogecoinPledgeBalance);
 		}).fail(function() {
