@@ -27,8 +27,9 @@
 		<div class="author">by Counterplay Games</div>
 		<p>Squad-Based Tactical Combat with Ranked Competitive Play. Brought to you by veterans from Diablo III and Rogue Legacy..</p>
 		<div class="location"><i class="fa fa-map-marker"></i> San Francisco, CA</div>
+		<% var percentComplete = 100*parseFloat(total_pledged)/parseFloat(goal); %>
 		<div class="progress">
-			<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <%= 100*parseFloat(total_pledged)/parseFloat(goal) %>%;"></div>
+			<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <%= (percentComplete>100) ? 100 : percentComplete %>%;"></div>
 		</div>
 		<div class="stats">
 			<div class="percent-funded">

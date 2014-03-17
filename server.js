@@ -6,6 +6,7 @@ var logfmt = require("logfmt");
 var sass = require('node-sass');
 var path = require('path');
 var DogeAPI = require('dogeapi');
+var dogeAPIUtilities = require('./lib/doge_api_utilities.js');
 var settings = require('./settings.js')
 var mandrill = require('mandrill-api/mandrill');
 var qrcode=require('qrcode-js');
@@ -64,11 +65,15 @@ app.get('/', function(req, res) {
 
 			postgres_client.query('SELECT COUNT(id) as backer_count, tier FROM pledges GROUP BY tier',function(error, backer_counts_result) {
 
+				var days_remaining = Math.ceil(((settings.campaign.startDate + settings.campaign.durationDayCount*24*60*60*1000) - new Date()) / (1000*60*60*24));
+				if (days_remaining < 0)
+					days_remaining = 0;
+				
 				res.render("start", { 
 					backer_counts_rows: backer_counts_result.rows,
 					pledge_count: pledge_count_result.rows[0].pledge_count,
 					start_date: settings.startDate,
-					days_remaining: Math.ceil(((settings.campaign.startDate + settings.campaign.durationDayCount*24*60*60*1000) - new Date()) / (1000*60*60*24)),
+					days_remaining: days_remaining,
 					goal: settings.campaign.goal.formatMoney(0,'.',',')
 				});
 			});
@@ -85,10 +90,14 @@ app.get('/embed', function(req, res) {
 
 			postgres_client.query('SELECT SUM(amount) as amount FROM pledges',function(error, result) {
 
+				var days_remaining = Math.ceil(((settings.campaign.startDate + settings.campaign.durationDayCount*24*60*60*1000) - new Date()) / (1000*60*60*24));
+				if (days_remaining < 0)
+					days_remaining = 0;
+
 				res.render("embed", { 
 					total_pledged:result.rows[0]["amount"] || 0,
 					start_date: settings.startDate,
-					days_remaining: Math.ceil(((settings.campaign.startDate + settings.campaign.durationDayCount*24*60*60*1000) - new Date()) / (1000*60*60*24)),
+					days_remaining: days_remaining,
 					goal: settings.campaign.goal
 				});
 			});
@@ -150,25 +159,33 @@ app.post('/pledge', function(req, res) {
 
 		var email_base64 = new Buffer(req.param("email")).toString('base64');
 		console.log("Creating DogeAPI address for customer: ", req.param("email"));
-		dogeAPI.getNewAddress("pledge", function (error, response) {
+
+
+		dogeAPIUtilities.grabWallet(postgres_client, function (error, response) {
+
 			if(error) {
 				console.log(error);
 				res.json(500, { code:1, error: 'unable to retrieve new address from DogeAPI' });
+
 			} else {
 
-				console.log("DogeAPI address created: ", response);
-				var address = JSON.parse(response)["data"]["address"];
+				console.log("Found wallet: ", response);
+				var wallet_id = response["id"]
+				var address = response["wallet_address"];
 				var base64qrcode = qrcode.toDataURL(address, 4);
-				postgres_client.query('INSERT INTO pledges(email,wallet_address,amount,tier,created_at) VALUES($1,$2,$3,$4,$5)', [req.param("email"),address,req.param("amount"),req.param("tier"),new Date()],function(err, result) {
+				postgres_client.query('WITH returned_pledge AS (INSERT INTO pledges(email,wallet_address,amount,tier,created_at) VALUES($1,$2,$3,$4,$5) RETURNING id,email) UPDATE wallets SET updated_at=$5, claimed=true, pledge_id=(SELECT id FROM returned_pledge) WHERE id=$6 RETURNING (SELECT id FROM returned_pledge);', [req.param("email"),address,req.param("amount"),req.param("tier"),new Date(),wallet_id],function(err, result) {
 				    if(err) {
+
 				    	console.error('error running query', err);
 				    } else {
+
 						console.log("Saved to Database");
 						sendNotificationEmail(req.param("email"),req.param("amount"),address,base64qrcode);
 				    }
 				});
 				res.json({ email:req.param("email"), address: address, qrcode: base64qrcode });
 			}
+
 		});
 
 
