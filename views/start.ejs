@@ -36,7 +36,7 @@
 				<iframe width="729" height="400" src="//www.youtube.com/embed/000al7ru3ms" frameborder="0" allowfullscreen></iframe>
 			</div>
 			<div id="share_utilities">
-				<a href="#"><i class="fa fa-code"></i> embed</a>
+				<a href="javascript:$('#embed_modal').modal();"><i class="fa fa-code"></i> embed</a>
 			</div>
 			<h1>Such Project. Much Creative.</h1>
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rhoncus non dui sed ullamcorper. Maecenas vestibulum augue in sem rhoncus tincidunt. Fusce egestas ornare faucibus. Proin leo purus, semper quis condimentum ac, adipiscing nec est. Nulla facilisi. Duis tincidunt, elit ac gravida scelerisque, metus velit mattis velit, eu sagittis velit dolor vitae augue. Integer mauris sem, tristique non purus in, volutpat tincidunt quam. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec consectetur vestibulum arcu, et consequat ipsum gravida vel. Nam posuere mauris at nulla rutrum egestas.</p>
@@ -172,6 +172,29 @@
 	  </div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
 
+	<div id="embed_modal" class="modal fade">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	        <h4 class="modal-title">So Embed</h4>
+	      </div>
+			<div class="modal-body row">
+				<div class="col-md-6">
+					<p>Use the code below to embed a DOGESTARTER badge on your site.</p>
+	      			<textarea onclick="this.focus();this.select()" readonly="readonly" id="embed_code" style="width:100%; border:solid #ccc 1px; padding:5px; height:200px"></textarea>
+				</div>
+				<div class="col-md-6">
+	      			<iframe src="/embed" frameborder="0" height="400" scrolling="no" width="220"></iframe>
+				</div>
+			</div>
+	      <div class="modal-footer">
+	        <button id="done_button" type="button" data-dismiss="modal" class="btn btn-primary">Done</button>
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
 	<!-- LIBS / CDN VERSION -->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
@@ -241,6 +264,8 @@
 			var val = parseFloat($(this).val());
 			updateModalTier(val);
 		})
+
+		$("#embed_code").val('<iframe src="http://'+document.location.host+'/embed" frameborder="0" height="400" scrolling="no" width="220"></iframe>');
 	});
 
 	function updateModalTier(amount) {

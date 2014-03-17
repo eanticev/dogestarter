@@ -12,7 +12,8 @@
     "db-migrate":"*",
     "node-sass":"*",
     "mandrill-api":"*",
-    "qrcode-js":"*"
+    "qrcode-js":"*",
+    "memory-cache":"*"
   },
   "scripts": {
     "start": "node server.js"

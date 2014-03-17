@@ -10,6 +10,7 @@ var dogeAPIUtilities = require('./lib/doge_api_utilities.js');
 var settings = require('./settings.js')
 var mandrill = require('mandrill-api/mandrill');
 var qrcode=require('qrcode-js');
+var cache = require('memory-cache');
 
 var dogeAPI = new DogeAPI({
 							apikey: settings.dogeApiKey,
@@ -57,79 +58,166 @@ postgres_client.connect(function(err) {
 var mandrill_client = new mandrill.Mandrill(settings.notifications.mandrillApiKey);
 
 app.get('/', function(req, res) {
-	postgres_client.query('SELECT COUNT(*) as pledge_count FROM pledges',function(error, pledge_count_result) {
-		if(error) {
-			console.log(error);
-			res.json(500, { code:1, error: 'unable to retrieve pledge info' });
-		} else {
 
-			postgres_client.query('SELECT COUNT(id) as backer_count, tier FROM pledges GROUP BY tier',function(error, backer_counts_result) {
 
-				var days_remaining = Math.ceil(((settings.campaign.startDate + settings.campaign.durationDayCount*24*60*60*1000) - new Date()) / (1000*60*60*24));
-				if (days_remaining < 0)
-					days_remaining = 0;
-				
-				res.render("start", { 
-					backer_counts_rows: backer_counts_result.rows,
-					pledge_count: pledge_count_result.rows[0].pledge_count,
-					start_date: settings.startDate,
-					days_remaining: days_remaining,
-					goal: settings.campaign.goal.formatMoney(0,'.',',')
+	var onComplete = function(data) {
+		res.render("start", data);
+	};
+
+	var renderData = cache.get('start');
+
+	if (renderData) {
+		
+		console.log("rendering START from CACHE");
+		onComplete(renderData);
+
+	} else {
+
+		console.log("rendering START from DB");
+		
+		postgres_client.query('SELECT COUNT(*) as pledge_count FROM pledges',function(error, pledge_count_result) {
+			if(error) {
+				console.log(error);
+				res.json(500, { code:1, error: 'unable to retrieve pledge info' });
+			} else {
+
+				postgres_client.query('SELECT COUNT(id) as backer_count, tier FROM pledges GROUP BY tier',function(error, backer_counts_result) {
+
+					var days_remaining = Math.ceil(((settings.campaign.startDate + settings.campaign.durationDayCount*24*60*60*1000) - new Date()) / (1000*60*60*24));
+					if (days_remaining < 0)
+						days_remaining = 0;
+
+					renderData = { 
+						backer_counts_rows: backer_counts_result.rows,
+						pledge_count: pledge_count_result.rows[0].pledge_count,
+						start_date: settings.startDate,
+						days_remaining: days_remaining,
+						goal: settings.campaign.goal.formatMoney(0,'.',',')
+					};
+
+					cache.put('start',renderData,30*1000); // 30 second cache
+					onComplete(renderData);
+
 				});
-			});
-		}
-	});
+			}
+		});
+
+	}
 });
 
 app.get('/embed', function(req, res) {
-	postgres_client.query('SELECT COUNT(*) as pledge_count FROM pledges',function(error, pledge_count_result) {
-		if(error) {
-			console.log(error);
-			res.json(500, { code:1, error: 'unable to retrieve pledge info' });
-		} else {
+	
 
-			postgres_client.query('SELECT SUM(amount) as amount FROM pledges',function(error, result) {
+	var onComplete = function(data) {
+		res.render("embed", data);
+	};
 
-				var days_remaining = Math.ceil(((settings.campaign.startDate + settings.campaign.durationDayCount*24*60*60*1000) - new Date()) / (1000*60*60*24));
-				if (days_remaining < 0)
-					days_remaining = 0;
+	var renderData = cache.get('embed');
 
-				res.render("embed", { 
-					total_pledged:result.rows[0]["amount"] || 0,
-					start_date: settings.startDate,
-					days_remaining: days_remaining,
-					goal: settings.campaign.goal
+	if (renderData) {
+		
+		console.log("rendering EMBED from CACHE");
+		onComplete(renderData);
+
+	} else {
+
+		console.log("rendering EMBED from DB");
+
+		postgres_client.query('SELECT COUNT(*) as pledge_count FROM pledges',function(error, pledge_count_result) {
+			if(error) {
+				console.log(error);
+				res.json(500, { code:1, error: 'unable to retrieve pledge info' });
+			} else {
+
+				postgres_client.query('SELECT SUM(amount) as amount FROM pledges',function(error, result) {
+
+					var days_remaining = Math.ceil(((settings.campaign.startDate + settings.campaign.durationDayCount*24*60*60*1000) - new Date()) / (1000*60*60*24));
+					if (days_remaining < 0)
+						days_remaining = 0;
+
+					renderData = { 
+						total_pledged:result.rows[0]["amount"] || 0,
+						start_date: settings.startDate,
+						days_remaining: days_remaining,
+						goal: settings.campaign.goal
+					};
+
+					cache.put('embed',renderData,60*1000); // 60 second cache
+					onComplete(renderData);
 				});
-			});
-		}
-	});
+			}
+		});
+	}
+
 });
 
 app.get('/balance', function(req, res) {
-	dogeAPI.getBalance(function (error, response) {
-		if(error) {
-			console.log(error);
-			res.json(500, { code:1, error: 'unable to retrieve balance from DogeAPI' });
-		} else {
-			res.json(JSON.parse(response)["data"]);
-		}
-	});
+
+	var onComplete = function(data) {
+		res.json(data);
+	};
+
+	var renderData = cache.get('balance');
+
+	if (renderData) {
+		
+		console.log("rendering BALANCE from CACHE");
+		onComplete(renderData);
+
+	} else {
+
+		console.log("rendering BALANCE from DogeAPI");
+
+		dogeAPI.getBalance(function (error, response) {
+			if(error) {
+				console.log(error);
+				res.json(500, { code:1, error: 'unable to retrieve balance from DogeAPI' });
+			} else {
+				renderData = JSON.parse(response)["data"];
+				cache.put('balance',renderData,10*1000); // 10 second cache
+				onComplete(renderData);
+			}
+		});
+	}
+
 });
 
 app.get('/amount', function(req, res) {
-	postgres_client.query('SELECT SUM(amount) as amount FROM pledges',function(error, result) {
 
-		if(error) {
-			console.log(error);
-			res.json(500, { code:1, error: 'unable to retrieve balance from DB' });
-		} else {
-			res.json({balance:result.rows[0]["amount"]});
-		}
-				
-	});
+	var onComplete = function(data) {
+		res.json(data);
+	};
+
+	var renderData = cache.get('amount');
+
+	if (renderData) {
+		
+		console.log("rendering AMOUNT from CACHE");
+		onComplete(renderData);
+
+	} else {
+
+		console.log("rendering AMOUNT from DB");
+
+		postgres_client.query('SELECT SUM(amount) as amount FROM pledges',function(error, result) {
+
+			if(error) {
+				console.log(error);
+				res.json(500, { code:1, error: 'unable to retrieve balance from DB' });
+			} else {
+
+				renderData = {balance:result.rows[0]["amount"]};
+				cache.put('amount',renderData,30*1000); // 30 second cache
+				onComplete(renderData);
+			}
+					
+		});
+	}
+
 });
 
 app.get('/price', function(req, res) {
+
 	dogeAPI.getCurrentPrice(function (error, response) {
 		if(error) {
 			console.log(error);
@@ -138,9 +226,11 @@ app.get('/price', function(req, res) {
 			res.json(JSON.parse(response)["data"]);
 		}
 	});
+
 });
 
 app.get('/pledges', auth, function(req, res) {
+
 	postgres_client.query('SELECT * FROM pledges LIMIT 5000',function(error, result) {
 			if(error) {
 				console.log(error);
@@ -149,6 +239,7 @@ app.get('/pledges', auth, function(req, res) {
 				res.render("pledges",{ rows: result.rows });
 			}
 	});
+
 });
 
 
