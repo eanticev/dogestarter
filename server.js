@@ -12,6 +12,8 @@ var mandrill = require('mandrill-api/mandrill');
 var qrcode=require('qrcode-js');
 var cache = require('memory-cache');
 var content = require('./content.json');
+var notifier = require('./lib/notifier.js');
+var prototypes = require('./lib/prototypes.js');
 
 var dogeAPI = new DogeAPI({
 							apikey: settings.dogeApiKey,
@@ -279,7 +281,7 @@ app.post('/pledge', function(req, res) {
 				    } else {
 
 						console.log("Saved to Database");
-						sendNotificationEmail(req.param("email"),req.param("amount"),address,base64qrcode);
+						notifier.sendNotificationEmail(app,req.param("email"),req.param("amount"),address,base64qrcode);
     					liveUpdatesSocketIO.emit('pledge',{amount:req.param("amount")});
 				    }
 				});
@@ -300,81 +302,3 @@ var liveUpdatesSocketIO = io.of('/live_updates').on('connection', function (sock
 
 var port = Number(process.env.PORT || 5000);
 server.listen(port);
-
-/******/
-function sendNotificationEmail(email,amountPledged,walletAddress,qrcode,tier) {
-	if (settings.notifications.mandrillApiKey) {
-		app.render('notification', {amount:amountPledged, qrcode:qrcode, walletAddress:walletAddress}, function(err, html){
-			console.log(html);
-			var message = {
-			    "html": html,
-			    /* "text": "Example text content", */
-			    "subject": settings.notifications.subject,
-			    "from_email": settings.notifications.fromEmail,
-			    "from_name": settings.notifications.fromName,
-			    "to": [{
-			            "email": email,
-			            "type": "to"
-			        }],
-			    "important": false,
-			    "track_opens": null,
-			    "track_clicks": null,
-			    "auto_text": null,
-			    "auto_html": null,
-			    "inline_css": null,
-			    "url_strip_qs": null,
-			    "preserve_recipients": null,
-			    "view_content_link": null,
-			    "tracking_domain": null,
-			    "signing_domain": null,
-			    "return_path_domain": null,
-			    "merge": true,
-			    "global_merge_vars": [{
-			            "name": "amountPledged",
-			            "content": amountPledged
-			        }],
-			    "merge_vars": [{
-			            "rcpt": "recipient.email@example.com",
-			            "vars": [{
-			                    "name": "merge2",
-			                    "content": "merge2 content"
-			                }]
-			        }],
-			    "tags": [
-			        "password-resets"
-			    ]
-			};
-			mandrill_client.messages.send({"message": message, "async": true, "ip_pool": "Main Pool"}, function(result) {
-			    console.log(result);
-			    /*
-			    [{
-			            "email": "recipient.email@example.com",
-			            "status": "sent",
-			            "reject_reason": "hard-bounce",
-			            "_id": "abc123abc123abc123abc123abc123"
-			        }]
-			    */
-			}, function(e) {
-			    // Mandrill returns the error as an object with name and message keys
-			    console.log('A mandrill error occurred: ' + e.name + ' - ' + e.message);
-			    // A mandrill error occurred: Unknown_Subaccount - No subaccount exists with the id 'customer-123'
-			});
-		});
-	} else {
-		console.log("Not sending notification because MANDRILL is not configured");
-	}
-}
-
-/******/
-/// Covenience Methods
-
-Number.prototype.formatMoney = function(c, d, t){
-var n = this, 
-    c = isNaN(c = Math.abs(c)) ? 2 : c, 
-    d = d == undefined ? "." : d, 
-    t = t == undefined ? "," : t, 
-    s = n < 0 ? "-" : "", 
-    i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", 
-    j = (j = i.length) > 3 ? j % 3 : 0;
-   return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
- };

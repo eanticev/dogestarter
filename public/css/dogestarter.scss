@@ -32,6 +32,7 @@ a:hover { text-decoration:none; }
 	background-color:#fff;
 	border-radius:6px;
 	border: solid 1px #ddd;
+	position:relative;
 	#content_area {
 		padding:30px 15px;
 		#video {
@@ -64,6 +65,7 @@ a:hover { text-decoration:none; }
 		}
 		h1 { font-weight:normal; }
 		h2 { font-size:20px; }
+		h3 { font-size:16px; margin:2em 0 1em 0; }
 		p {
 			line-height:2em;
 		}
@@ -103,14 +105,14 @@ a:hover { text-decoration:none; }
 			font-size:1.5em;
 			display:block;
 			padding:12px 6px;
-			background:#3333FF;
+			background:#428bca;
 			color:#fff;
 			border:none;
 			border-radius:8px;
 			width:auto;
 			&:hover {
 				text-decoration:none;
-				background-color:#333366;
+				background-color:#f19322;
 			}
 			span {
 				display:block;
@@ -194,6 +196,43 @@ a:hover { text-decoration:none; }
 				p.small {
 					margin-bottom:0;
 				}
+			}
+		}
+	}
+
+	.ribbon-wrapper {
+
+		.ribbon-wrapper-color {
+		  width: 125px;
+		  height: 150px;
+		  overflow: hidden;
+		  position: absolute;
+		  top: 0px;
+		  right: 0px;
+
+			.ribbon {
+			  display:block;
+			  text-decoration:none;
+			  font: bold 10px Sans-Serif;
+			  color: #333;
+			  text-align: center;
+			  -webkit-transform: rotate(45deg);
+			  -moz-transform:    rotate(45deg);
+			  -ms-transform:     rotate(45deg);
+			  -o-transform:      rotate(45deg);
+			  position: relative;
+			  padding: 7px 0;
+			  left: 10px;
+			  top: 25px;
+			  width: 150px;
+			  background-color: #f19322;
+			  color: #000;
+			  -webkit-box-shadow: 0px 0px 3px rgba(0,0,0,0.3);
+			  -moz-box-shadow:    0px 0px 3px rgba(0,0,0,0.3);
+			  box-shadow:         0px 0px 3px rgba(0,0,0,0.3);
+			  span.white {
+			  	color:#fff;
+			  }
 			}
 		}
 	}

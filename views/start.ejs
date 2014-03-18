@@ -21,7 +21,6 @@
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-custom">
 
-
 	<header id="header" class="container content-section" style="padding-top:100px;">
 		<div class="col-md-12">
 			<img id="dogecoin_image" src="/assets/dogecoin-300.png" />
@@ -50,18 +49,92 @@
 				<a href="javascript:$('#embed_modal').modal();"><i class="fa fa-code"></i> embed</a>
 			</div>
 			<h1>Such Project. Much Creative.</h1>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rhoncus non dui sed ullamcorper. Maecenas vestibulum augue in sem rhoncus tincidunt. Fusce egestas ornare faucibus. Proin leo purus, semper quis condimentum ac, adipiscing nec est. Nulla facilisi. Duis tincidunt, elit ac gravida scelerisque, metus velit mattis velit, eu sagittis velit dolor vitae augue. Integer mauris sem, tristique non purus in, volutpat tincidunt quam. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec consectetur vestibulum arcu, et consequat ipsum gravida vel. Nam posuere mauris at nulla rutrum egestas.</p>
-			<h2>Very Subtitle.</h2>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rhoncus non dui sed ullamcorper. Maecenas vestibulum augue in sem rhoncus tincidunt. Fusce egestas.</p>
+			<p>DOGESTARTER is an open source Node.JS for crowdfunding your project using the crypto-currency <a href="//dogecoin.com" target="_blank">Dogecoin</a>.</p>
+
+			<h2>How it works</h2>
+			<p>DOGESTARTER uses the DogeAPI service to generate a unique wallet address for each backer, and when a backer is ready to pledge, it shows them the unique address to send their pledge amount to. The backer also receives an email with this unique wallet address in case they need to send their pledge offline later. These addresses are then later validated and the per-customer pledge amounts are confirmed.</p>
+			
+			<h2>Getting Started</h2>
+			<p>After cloning DOGESTARTER from github, install all of the required libraries by running:</p>
+			<pre>npm install</pre>
+			<p>From here you will need to set up the database, notifications, dogecoin api, and your content by modifying the following 3 setup files: <code>database.json</code>, <code>settings.js</code>, and <code>content.json</code>.</p>
+
+			<h3>Database setup</h3>
+			<p>DOGESTARTER uses a Postgres SQL database as a back-end. We recommend using <a href="http://postgresapp.com/" target="_blank">PostgressApp</a> for local development.</p>
+			<p>After setting up a local database, edit the <code>database.json</code> file and provide your dev and or production DB urls:</p>
+			<pre>
+{
+  "dev": "postgres://..."
+  "prod": "postgres://...",
+}
+			</pre>
+			<p>Once you've set up a database, execute the database migrations (based on the <strong>db-migrate</strong> library) by running:</p>
+			<pre>db-migrate</pre>
+			<p>This will create two tables: <em>pledges</em> and <em>wallets</em>.</p>
+
+			<h3>DogeAPI setup</h3>
+			<p>You will also need a <strong>DogeAPI</strong> account, which is a wallet service. <a class="btn">Sign up for DogeAPI</a></p>
+			<p>Once you have a DogeAPI API Key, enter it into <code>settings.js</code>:</p>
+			<pre>
+var settings = {
+	...
+	dogeApiKey:'&lt;key&gt;',
+	...
+}
+			</pre>
+			<h3>Email Notifications setup</h3>
+			<p>If you wan to enable email notifications, you will also need a <strong>Mandrill</strong> account, which is an email delivery service from Mailchimp. <a class="btn">Sign up for Mandrill</a></p>
+			<p>Once you have a Madrill API Key, enter it into <code>settings.js</code> along with other notification setup params:</p>
+			<pre>
+var settings = {
+	...
+	notifications: {
+		mandrillApiKey:"&lt;key&gt;",
+		fromEmail:"info@dogestarter.co",
+		fromName:"Dogestarter",
+		subject:"Thank you for your DOGECOIN Pledge",
+	}
+	...
+}
+			</pre>
+			<h3>Project setup</h3>
+			<p>Inside <code>settings.js</code> you also need to set your general project parameters such as your <strong>goal</strong> and <strong> campaign duration</strong>:</p>
+			<pre>
+var settings = {
+	...
+	campaign: {
+		startDate: Date.parse("March 14, 2014"),
+		durationDayCount: 30,
+		goal:100000
+	}
+	...
+}
+			</pre>
+			<h3>Page Content</h3>
+			<p>All of the content that gets rendered into the campaign page can be edited in the <code>content.json</code> file.</p>
+			<p>You should also replace the <code>public/assets/hero_image.png</code> with your own hero image.</p>
+
+			<h2>Scripts and Validation</h2>
+			<h3>Pre-generate wallets</h3>
+			<p>Because DogeAPI might not be super reliable as a "live" service, you may want to pre-generate your wallet addresses by running:</p>
+			<pre>node ./scripts/generate_wallets.js</pre>
+			<p>Each time you run this script, you will generate 5 wallet addresses and store them to your local database for use with pledges later. Doing so will greatly increase performance.</p>
+			<h3>Validation</h3>
+			<p>To validate backer pledges you can run the task:</p>
+			<pre>node ./scripts/validator.js</pre>
+			<p>This script will grab all of the not yet checked pledges, and validate that your wallets have received the pledge amount that backer claims to have sent.</p>
+
+
 			<h1 class="faq">FAQ</h1>
 			<ol class="faq-list">
 				<% for (var i=0; i<content.faq.length; i++) { %>
 					<li>
 						<h4><a href="javascript:void" class="faq-link"><i class="fa fa-caret-right"></i> <%= content.faq[i].question %></a></h4>
-						<p><%= content.faq[i].answer %></p>
+						<p><%- content.faq[i].answer %></p>
 					</li>
 				<% } %>
 			</ol>
+
 		</div>
 		<div id="pledge_area" class="col-md-4">
 			<div>
@@ -95,7 +168,7 @@
 								<h4 class="tier-backers">
 									<span><%= backer_count %> Shibes</span>
 									<% if (content.tiers[i].backer_limit != undefined && content.tiers[i].backer_limit > 0) { %>
-										<span class="limited">limited (<%= content.tiers[i].backer_limit - backer_count %> left of <%= content.tiers[i].backer_limit %>)</span>
+										<span class="limited">LIMITED (<%= content.tiers[i].backer_limit - backer_count %> left of <%= content.tiers[i].backer_limit %>)</span>
 									<% } %>
 								</h4>
 								<p class="tier-description"><%= content.tiers[i].description %></p>
@@ -105,6 +178,9 @@
 					<% } %>
 				</ol>
 			</div>
+		</div>
+		<div id="powered_by_ribbon" class="ribbon-wrapper">
+		       <div class="ribbon-wrapper-color"><a href="http://dogestarter.co" class="ribbon">DOGE<span class="white">STARTER</span></a></div>
 		</div>
 	</section>
 
@@ -206,6 +282,9 @@
 	    </div><!-- /.modal-content -->
 	  </div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
+
+	<!-- FORK ME ON GITHUB -->
+	<a href="https://github.com/you"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://github-camo.global.ssl.fastly.net/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
 
 	<!-- LIBS / CDN VERSION -->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
