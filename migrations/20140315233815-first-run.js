@@ -34,11 +34,11 @@ exports.up = function(db, callback) {
 
 exports.down = function(db, callback) {
 	
-	db.dropTable('pledges', dropWallets);
+	db.dropTable('pledges', {ifExists:true}, dropWallets);
 
 	function dropWallets(err) {
 		if (err) { callback(err); return; }
-		db.dropTable('wallets', callback);
+		db.dropTable('wallets', {ifExists:true}, callback);
 	}
 	
 };
