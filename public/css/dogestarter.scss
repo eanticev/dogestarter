@@ -39,6 +39,24 @@ a:hover { text-decoration:none; }
 			border-radius:6px;
 			width:100%;
 			height:400px;
+			#hero_video_link {
+				position:relative;
+				span {
+					position:absolute;
+					left:50%;
+					top:100px;
+					margin:0px -50px;
+					display:block;
+					background:#000;
+					color:#fff;
+					padding:10px;
+					border:solid #fff 2px;
+					border-radius:4px;
+				}
+			}
+			#video_embed_container {
+				display:none;
+			}
 		}
 		#share_utilities {
 			padding:10px;

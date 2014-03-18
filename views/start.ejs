@@ -38,7 +38,13 @@
 	<section id="body" class="container content-section">
 		<div id="content_area" class="col-md-8">
 			<div id="video">
-				<%- content.project.youtube_embed_code %>
+				<a href="javascript:playVideo()" id="hero_video_link">
+					<img src="/assets/hero_image.png" width="100%" />
+					<span>click to play</span>
+				</a>
+				<div id="video_embed_container">
+					<div id="video_embed"></div>
+				</div>
 			</div>
 			<div id="share_utilities">
 				<a href="javascript:$('#embed_modal').modal();"><i class="fa fa-code"></i> embed</a>
@@ -208,6 +214,49 @@
 
 	<!-- LOCAL JS -->
 	<script src="/js/spin.js"></script>
+
+	<!-- Youtube API -->
+	<script>
+
+	// Load Youtube API
+	var tag = document.createElement('script');
+	tag.src = "https://www.youtube.com/iframe_api";
+
+	var firstScriptTag = document.getElementsByTagName('script')[0];
+	firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+	var youtubePlayer;
+
+	function onYouTubeIframeAPIReady() {
+		alert("youtube API ready");
+	    player = new YT.Player('video_embed', {
+	        height: '400',
+	        width: '729',
+	        videoId: '000al7ru3ms',
+	        playerVars: {
+	            autohide: 1,
+	            modestbranding: 1,
+	            showinfo: 0
+	        },
+	        events: {
+	            'onReady': onPlayerReady
+	        }
+	    });
+	}
+
+	function onPlayerReady(event) {
+	    //set playerReady to true
+	    event.target.setPlaybackQuality('hd720');
+	    youtubePlayer = event.target;
+	}
+
+	function playVideo() {
+		$("#video_embed_container").show();
+		$("#hero_video_link").hide();
+		window.youtubePlayer.playVideo();
+	}
+
+	</script>
 
 	<script>
 
