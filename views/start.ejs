@@ -359,5 +359,17 @@
 
 	</script>
 
+	<!-- Socket.IO -->
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+	  var socket = io.connect('/live_updates');
+	  socket.on('pledge', function (data) {
+	  	console.log("pledge amount increased by "+data.amount);
+	  	var soFar = $(".pledged-so-far:first").text();
+	  	soFar = parseFloat(soFar) + parseFloat(data.amount);
+	  	$(".pledged-so-far").text(soFar);
+	  });
+	</script>
+
 </body>
 </html>

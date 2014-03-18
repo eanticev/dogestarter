@@ -13,7 +13,8 @@
     "node-sass":"*",
     "mandrill-api":"*",
     "qrcode-js":"*",
-    "memory-cache":"*"
+    "memory-cache":"*",
+    "socket.io":"*"
   },
   "scripts": {
     "start": "node server.js"

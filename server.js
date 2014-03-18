@@ -34,6 +34,11 @@ app.use(express.static('public'))
 // app.set('views',__dirname + '/templates');
 
 
+// Socket.IO
+var server = require('http').createServer(app)
+var io = require('socket.io').listen(server);
+
+
 // Basic AUTH middleware -  Asynchronous
 var auth = express.basicAuth(function(user, pass, callback) {
  var result = (user === settings.httpAuth.username && pass === settings.httpAuth.password);
@@ -275,6 +280,7 @@ app.post('/pledge', function(req, res) {
 
 						console.log("Saved to Database");
 						sendNotificationEmail(req.param("email"),req.param("amount"),address,base64qrcode);
+    					liveUpdatesSocketIO.emit('pledge',{amount:req.param("amount")});
 				    }
 				});
 				res.json({ email:req.param("email"), address: address, qrcode: base64qrcode });
@@ -288,10 +294,12 @@ app.post('/pledge', function(req, res) {
 	}
 });
 
-var port = Number(process.env.PORT || 5000);
-app.listen(port, function() {
-  console.log("Listening on " + port);
+var liveUpdatesSocketIO = io.of('/live_updates').on('connection', function (socket) {
+	// on connection
 });
+
+var port = Number(process.env.PORT || 5000);
+server.listen(port);
 
 /******/
 function sendNotificationEmail(email,amountPledged,walletAddress,qrcode,tier) {
