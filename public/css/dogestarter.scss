@@ -50,7 +50,10 @@ a:hover { text-decoration:none; }
 #home {
 
 	#content_area {
-		padding:30px 15px;
+		padding:30px 15px 0 15px;
+		@media (min-width: 768px) {
+			padding-bottom:15px;
+		}
 		#video {
 			background-color:#eee;
 			border-radius:6px;
@@ -60,7 +63,10 @@ a:hover { text-decoration:none; }
 				span {
 					position:absolute;
 					left:50%;
-					top:100px;
+					top:50px;
+					@media (min-width: 768px) {
+						top:100px;
+					}
 					margin:0px -50px;
 					display:block;
 					background:#000;
@@ -108,15 +114,34 @@ a:hover { text-decoration:none; }
 		}
 		#backer_stats {
 			h3 {
-				font-size:16px;
+				float:left;
+				width:30%;
+				font-size:12px;
+				margin-bottom:25px;
+				margin-right:5%;
 				strong {
 					display:block;
-					font-size:36px;
-					margin-bottom:5px;
+					font-size:24px;
+				}
+				&:first-child {
+					width:15%;
+				}
+			}
+			@media (min-width: 768px) {
+				h3 {
+					margin-right:0;
+					float:none;
+					width:auto;
+					font-size:16px;
+					strong {
+						font-size:36px;
+						margin-bottom:5px;
+					}
 				}
 			}
 		}
 		#pledge {
+			clear:both;
 			text-align:center;
 			font-size:1.5em;
 			display:block;

@@ -56,9 +56,12 @@
 						<div id="video_embed"></div>
 					</div>
 				</div>
-				<div id="share_utilities">
+				<div id="share_utilities" class="hidden-xs">
 					<a href="javascript:$('#embed_modal').modal();"><i class="fa fa-code"></i> embed</a>
 				</div>
+
+				<div id="description" class="hidden-xs">
+
 				<h1>Such Project. Much Creative.</h1>
 				<p>DOGESTARTER is an open source Node.JS for crowdfunding your project using the crypto-currency <a href="//dogecoin.com" target="_blank">Dogecoin</a>.</p>
 
@@ -158,19 +161,21 @@ var settings = {
 					<% } %>
 				</ol>
 
+				</div>
+
 			</div>
 			<div id="pledge_area" class="col-md-4">
 				<div>
 					<div id="backer_stats">
 						<h3><strong><%= pledge_count %></strong> Shibes</h3>
-						<h3><strong>Ð<span class="pledged-so-far">...</span></strong> pledged of Ð<%= goal %> goal</h3>
+						<h3><strong>Ð<span class="pledged-so-far">...</span></strong> <span class="hidden-xs">pledged</span> of Ð<%= goal %> goal</h3>
 						<h3><strong><%= days_remaining %></strong> days to go</h3>
 					</div>
 					<a id="pledge" href="javascript:showModal(250)">
 						<span>Make Pledge PLZ</span>
 						<span class="minimum">250 Ð minimum</span>
 					</a>
-					<p>This project will only be funded if at least Ð<%= goal %> is pledged by Shibe's.</p>
+					<p class="hidden-xs">This project will only be funded if at least Ð<%= goal %> is pledged by Shibe's.</p>
 					<div id="created_by">
 						<img class="avatar" src="<%= content.project.created_by.avatar_url %>" />
 						<div class="project-by">project by</div>
