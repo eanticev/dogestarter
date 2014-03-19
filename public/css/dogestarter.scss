@@ -28,11 +28,27 @@ a:hover { text-decoration:none; }
 	}
 }
 
-#body {
+#tabs {
+	padding-left:100px;
+	border-bottom:none;
+	position:relative;
+	z-index:1;
+	li a {
+		padding:5px 15px;
+	}
+}
+
+.content-section {
+
 	background-color:#fff;
 	border-radius:6px;
 	border: solid 1px #ddd;
 	position:relative;
+	min-height:200px;
+}
+
+#home {
+
 	#content_area {
 		padding:30px 15px;
 		#video {
