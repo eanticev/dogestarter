@@ -6,7 +6,7 @@
 		"campaign_goal": 100000,
 		"title_background_image_url": "/assets/logo_small.png",
 		"include_powered_by_dogestarter_in_title": false,
-		"short_description": "An open-source node.js Dogecoin crowdfunding app by the team behind <a href=\"//kck.st/NLR937\">DUELYST</a> and powered by DogeAPI",
+		"short_description": "An open-source node.js Dogecoin crowdfunding app by the team behind <a href=\"//kck.st/NLR937\" target=\"_blank\">DUELYST</a> and powered by DogeAPI",
 		"thumbnail": "/assets/hero_image.png",
 		"location": "San Francisco, CA",
 		"youtube_video_id": "000al7ru3ms",
