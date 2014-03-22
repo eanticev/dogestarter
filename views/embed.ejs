@@ -26,7 +26,7 @@
 		<h1><a href="#"><%= content.project.title %></a></h1>
 		<div class="author">by <%= content.project.created_by.name %></div>
 		<p><%- content.project.short_description %></p>
-		<div class="location"><i class="fa fa-map-marker"></i> San Francisco, CA</div>
+		<div class="location"><i class="fa fa-map-marker"></i> <%= content.project.location %></div>
 		<% var percentComplete = 100*parseFloat(total_pledged)/parseFloat(goal); %>
 		<div class="progress">
 			<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <%= (percentComplete>100) ? 100 : percentComplete %>%;"></div>
@@ -46,40 +46,12 @@
 			</div>
 		</div>
 		<div class="powered-by">
-			powered by <img src="/assets/logo_small.png" width="90" />
+			powered by <a href="http://dogestarter.co"><img src="/assets/logo_small.png" width="90" /></a>
+		</div>
+		<div id="powered_by_ribbon" class="ribbon-wrapper">
+		       <div class="ribbon-wrapper-color"><a href="http://dogestarter.co" class="ribbon">DOGE<span class="white">STARTER</span></a></div>
 		</div>
 	</div>
-
-	<!--
-	<div id="badge">
-		<a href="#"><img class="hero" src="http://duelyst.com/assets/trailer_promo_no_button.png" /></a>
-		<h1><a href="#">DUELYST</a></h1>
-		<div class="author">by Counterplay Games</div>
-		<p>Squad-Based Tactical Combat with Ranked Competitive Play. Brought to you by veterans from Diablo III and Rogue Legacy..</p>
-		<div class="location"><i class="fa fa-map-marker"></i> San Francisco, CA</div>
-		<% var percentComplete = 100*parseFloat(total_pledged)/parseFloat(goal); %>
-		<div class="progress">
-			<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <%= (percentComplete>100) ? 100 : percentComplete %>%;"></div>
-		</div>
-		<div class="stats">
-			<div class="percent-funded">
-				<strong><%= 100*parseFloat(total_pledged)/parseFloat(goal) %>%</strong>
-				<span>funded</span>
-			</div>
-			<div class="amount-pledged">
-				<strong>Ð<%=total_pledged%></strong>
-				<span>pledged</span>
-			</div>
-			<div class="days-left">
-				<strong><%= days_remaining %></strong>
-				<span>days left</span>
-			</div>
-		</div>
-		<div class="powered-by">
-			powered by <img src="/assets/logo_small.png" width="90" />
-		</div>
-	</div>
-	-->
 
 	<!-- LIBS / CDN VERSION -->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>

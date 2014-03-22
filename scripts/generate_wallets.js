@@ -17,6 +17,6 @@ postgres_client.connect(function(err) {
 	}
 
 	// begin recursive wallet generation
-	dogeAPIUtilities.generateWallet(postgres_client,true,5);
+	dogeAPIUtilities.generateWallet(postgres_client,true,50);
 
 });

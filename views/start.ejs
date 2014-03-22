@@ -249,9 +249,10 @@ var settings = {
 	</div>
 
 	<footer>
-		<p>A project by the team behind <a href="//duelyst.com">DUELYST</a></p>
+		<p>A project by the team behind <a href="//kck.st/NLR937">DUELYST</a></p>
 	</footer>
 
+	<% if (days_remaining > 0) { %>
 	<div id="pledge_modal" class="modal fade">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
@@ -310,6 +311,7 @@ var settings = {
 	    </div><!-- /.modal-content -->
 	  </div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
+	<% } %>
 
 	<div id="embed_modal" class="modal fade">
 	  <div class="modal-dialog">
@@ -475,11 +477,15 @@ var settings = {
 	}
 
 	function showModal(amount) {
-		$('#pledge_modal').modal();
-		$('#pledge_modal #amount').val(amount);
-		$('#pledge_modal .dogecoin-pledge-amount').text(amount);
-		updateModalTier(amount);
-		setTimeout("$('#pledge_modal #email_input').focus();",500);
+		<% if (days_remaining <= 0) { %>
+			return; // project is over so we don't show any modal
+		<% } else { %>
+			$('#pledge_modal').modal();
+			$('#pledge_modal #amount').val(amount);
+			$('#pledge_modal .dogecoin-pledge-amount').text(amount);
+			updateModalTier(amount);
+			setTimeout("$('#pledge_modal #email_input').focus();",500);
+		<% } %>
 	}
 
 	function isEmail(email) {
@@ -516,6 +522,9 @@ var settings = {
 		}());
 		</script>
 	<% } %>
+
+	<!-- ANALYTICS CODE -->
+	<%- content.project.analytics_code %>
 
 </body>
 </html>

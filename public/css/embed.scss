@@ -3,6 +3,7 @@ body {
 }
 
 div#badge {
+	position:relative;
 	width:220px;
 	height:400px;
 	background:#fff;
@@ -71,6 +72,43 @@ div#badge {
 		color:#ccc;
 		img {
 			vertical-align:baseline;
+		}
+	}
+
+	.ribbon-wrapper {
+
+		.ribbon-wrapper-color {
+		  width: 125px;
+		  height: 150px;
+		  overflow: hidden;
+		  position: absolute;
+		  top: 0px;
+		  right: 0px;
+
+			.ribbon {
+			  display:block;
+			  text-decoration:none;
+			  font: bold 8px Sans-Serif;
+			  color: #333;
+			  text-align: center;
+			  -webkit-transform: rotate(45deg);
+			  -moz-transform:    rotate(45deg);
+			  -ms-transform:     rotate(45deg);
+			  -o-transform:      rotate(45deg);
+			  position: relative;
+			  padding: 4px 0;
+			  left: 23px;
+			  top: 20px;
+			  width: 150px;
+			  background-color: #f19322;
+			  color: #000;
+			  -webkit-box-shadow: 0px 0px 3px rgba(0,0,0,0.3);
+			  -moz-box-shadow:    0px 0px 3px rgba(0,0,0,0.3);
+			  box-shadow:         0px 0px 3px rgba(0,0,0,0.3);
+			  span.white {
+			  	color:#fff;
+			  }
+			}
 		}
 	}
 }
