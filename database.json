@@ -1,0 +1,4 @@
+{
+  "prod": "postgres://hostname:5432/dogestarter_database_name",
+  "dev": "postgres://localhost:5432/dogestarter_database_name"
+}

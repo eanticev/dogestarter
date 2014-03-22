@@ -1,0 +1,75 @@
+{
+	"project": {
+		"title": "DOGESTARTER",
+		"start_date": "March 14, 2014",
+		"duration_days": 30,
+		"campaign_goal": 100000,
+		"title_background_image_url": "/assets/logo_small.png",
+		"include_powered_by_dogestarter_in_title": false,
+		"short_description": "An open-source node.js Dogecoin crowdfunding app by the team behind <a href=\"//kck.st/NLR937\">DUELYST</a> and powered by DogeAPI",
+		"thumbnail": "/assets/hero_image.png",
+		"location": "San Francisco, CA",
+		"youtube_video_id": "000al7ru3ms",
+		"disqus_shortname":"dogestarter",
+		"created_by": {
+			"name":"Shibetoshi Nakemoto",
+			"avatar_url":"https://lh3.googleusercontent.com/-WR9Ee9viqpg/AAAAAAAAAAI/AAAAAAAAAAA/1ueQr-wvH7Y/photo.jpg",
+			"contact_email":"eanticev@gmail.com",
+			"links":[
+				{
+					"icon":"fa-globe",
+					"title":"dogestarter.co",
+					"url":"http://dogestarter.com"
+				},
+				{
+					"icon":"fa-star",
+					"title":"DUELYST",
+					"url":"http://kck.st/NLR937"
+				}
+			]
+		},
+		"analytics_code": "... <html code for google analytics or any other widget> ..."
+	},
+
+	"tiers": [
+		{
+			"name":"Supporter Shibe",
+			"amount": 250,
+			"backer_limit": 1000,
+			"description": "Such tier. Much reward. Wow! Support now plz. So amaze.",
+			"fine_print":"Estimated delivery: Dec 2014"
+		},
+		{
+			"name":"Honored Doge",
+			"amount": 500,
+			"backer_limit": 500,
+			"description": "Such tier. Much reward. Wow! Support now plz. So amaze.",
+			"fine_print":"Estimated delivery: Dec 2014"
+		}
+	],
+
+	"faq": [
+		{
+			"question":"Who made this?",
+			"answer":"<a href=\"http://eanticev.com\">Emil Anticevic</a> with the team behind <a href=\"http://kck.st/NLR937\">DUELYST</a>."
+		},
+		{
+			"question":"Why did you make it?",
+			"answer":"Mostly for LOLZ, but also because cryptocurrency crowdfunding should be a thing. We used <a href=\"http://kck.st/NLR937\">Kickstarter</a> to sucessfully crowdfund our project, and wanted to give back to the community."
+		},
+		{
+			"question":"How should I support this?",
+			"answer":"You can <a href=\"javascript:showModal()\">Pledge</a> or you can support <a href=\"http://kck.st/NLR937\">DUELYST</a>."
+		}
+	],
+
+	"settings": {
+		"doge_api_key": "<key>",
+		"notifications": {
+			"mandrill_api_key":"<key>",
+			"from_email": "info@dogestarter.co",
+			"from_name": "DOGESTARTER",
+			"subject": "Thank you for your DOGECOIN Pledge"
+		}
+	}
+}
