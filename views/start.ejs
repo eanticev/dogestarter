@@ -64,89 +64,20 @@
 				<p>DOGESTARTER is an open source Node.JS for crowdfunding your project using the crypto-currency <a href="//dogecoin.com" target="_blank">Dogecoin</a>.</p>
 
 				<h2>How it works</h2>
-				<p>DOGESTARTER uses the DogeAPI service to generate a unique wallet address for each backer, and when a backer is ready to pledge, it shows them the unique address to send their pledge amount to. The backer also receives an email with this unique wallet address in case they need to send their pledge offline later. These addresses are then later validated and the per-customer pledge amounts are confirmed.</p>
+				<p>DOGESTARTER uses the DogeAPI service to generate a unique wallet address for each backer, and when a backer is ready to pledge, it shows them the unique address (and QRCode) to send their pledge amount to. The backer also receives an email with this unique wallet address in case they need to send their pledge offline later. These addresses are later validated and the per-customer pledge amounts are confirmed.</p>
+
+				<h2>What's included</h2>
+				<p>The source code, <a href="">embeds</a>, email notifications, QR Codes, pledge tracking and validation, and our sweet logo PSDs.</p>
 				
 				<h2>Getting Started</h2>
-				<p>After cloning DOGESTARTER from github, install all of the required libraries by running:</p>
-				<pre>npm install</pre>
-				<p>From here you will need to set up the database, notifications, dogecoin api, and your content by modifying the following 3 setup files: <code>database.json</code>, <code>settings.js</code>, and <code>content.json</code>.</p>
-
-				<h3>Database setup</h3>
-				<p>DOGESTARTER uses a Postgres SQL database as a back-end. We recommend using <a href="http://postgresapp.com/" target="_blank">PostgressApp</a> for local development.</p>
-				<p>After setting up a local database, edit the <code>database.json</code> file and provide your dev and or production DB urls:</p>
-				<pre>
-{
-	"dev": "postgres://..."
-	"prod": "postgres://...",
-}
-				</pre>
-				<p>Once you've set up a database, execute the database migrations (based on the <strong>db-migrate</strong> library) by running:</p>
-				<pre>db-migrate</pre>
-				<p>This will create two tables: <em>pledges</em> and <em>wallets</em>.</p>
-
-				<h3>DogeAPI setup</h3>
-				<p>You will also need a <strong>DogeAPI</strong> account, which is a wallet service. <a class="btn">Sign up for DogeAPI</a></p>
-				<p>Once you have a DogeAPI API Key, enter it into <code>settings.js</code>:</p>
-				<pre>
-var settings = {
-	...
-	dogeApiKey:'&lt;key&gt;',
-	...
-}
-				</pre>
-				<h3>Email Notifications setup (OPTIONAL)</h3>
-				<p>If you wan to enable email notifications, you will also need a <strong>Mandrill</strong> account, which is an email delivery service from Mailchimp. <a class="btn">Sign up for Mandrill</a></p>
-				<p>Once you have a Madrill API Key, enter it into <code>settings.js</code> along with other notification setup params:</p>
-				<pre>
-var settings = {
-	...
-	notifications: {
-		mandrillApiKey:"&lt;key&gt;",
-		fromEmail:"info@dogestarter.co",
-		fromName:"Dogestarter",
-		subject:"Thank you for your DOGECOIN Pledge",
-	}
-	...
-}
-				</pre>
-				<h3>Project setup</h3>
-				<p>Inside <code>settings.js</code> you also need to set your general project parameters such as your <strong>goal</strong> and <strong> campaign duration</strong>:</p>
-				<pre>
-var settings = {
-	...
-	campaign: {
-		startDate: Date.parse("March 14, 2014"),
-		durationDayCount: 30,
-		goal:100000
-	}
-	...
-}
-				</pre>
-				<h3>Page Content</h3>
-				<p>All of the content that gets rendered into the campaign page can be edited in the <code>content.json</code> file.</p>
-				<p>You should also replace the <code>public/assets/hero_image.png</code> with your own hero image.</p>
-
-				<h3>Comments (OPTIONAL)</h3>
-				<p>Comments are powered by <a href="//disqus.com" target="_blank">DISQUS</a>. In order to activate comments for your campaign, you will need to <a href="//disqus.com" target="_blank">register for DISQUS</a>, then edit <code>content.json</code> to include your DISQUS shortname here:</p>
-				<pre>
-{
-	"project": {
-		...
-		"disqus_shortname": "&lt;your shortname&gt;"
-		...
-	}
-}
-				</pre>
-
-				<h2>Scripts and Validation</h2>
-				<h3>Pre-generate wallets</h3>
-				<p>Because DogeAPI might not be super reliable as a "live" service, you may want to pre-generate your wallet addresses by running:</p>
-				<pre>node ./scripts/generate_wallets.js</pre>
-				<p>Each time you run this script, you will generate 5 wallet addresses and store them to your local database for use with pledges later. Doing so will greatly increase performance.</p>
-				<h3>Validation</h3>
-				<p>To validate backer pledges you can run the task:</p>
-				<pre>node ./scripts/validator.js</pre>
-				<p>This script will grab all of the not yet checked pledges, and validate that your wallets have received the pledge amount that backer claims to have sent.</p>
+				<p>It takes about 30 minutes to set up your own DOGESTARTER. You can get the source code from <a href="">Dogestarter on GitHub</a>. From there, follow the instructions on how to get up and running.</p>
+				
+				<h2>Credits</h2>
+				<ul>
+					<li>Project by <a href="">Emil Anticevic</a> and the team behind <a href="">DUELYST</a>.</li>
+					<li>Shoutout to <a href="">Stephen Lim</a> for surrendering his DOGE wealth for testing, and explaining how DOGECOIN works.</li>
+					<li>Special Thanks to <a href="">Jackson Palmer</a> and <a href="">Eric Nakagawa</a>. Follow these two amazing shibes and support their great community projects.</li>
+				</ul>
 
 
 				<h1 class="faq">FAQ</h1>
