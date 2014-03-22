@@ -241,14 +241,19 @@ app.get('/price', function(req, res) {
 
 app.get('/pledges', auth, function(req, res) {
 
-	postgres_client.query('SELECT * FROM pledges LIMIT 5000',function(error, result) {
-			if(error) {
-				console.log(error);
-				res.json(500, { code:1, error: 'unable to retrieve pledge info' });
-			} else {
-				res.render("pledges",{ rows: result.rows });
-			}
-	});
+	if (settings.admin_pages_enabled) {
+
+		postgres_client.query('SELECT * FROM pledges LIMIT 5000',function(error, result) {
+				if(error) {
+					console.log(error);
+					res.json(500, { code:1, error: 'unable to retrieve pledge info' });
+				} else {
+					res.render("pledges",{ rows: result.rows });
+				}
+		});
+	} else {
+		res.json(404, { error: 'admin pledge lists not enabled' });
+	}
 
 });
 
