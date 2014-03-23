@@ -12,6 +12,7 @@ div#badge {
 	font-size:12px;
 	color:#666;
 	padding:10px;
+
 	img.hero {
 		width:200px;
 		height:115px;
@@ -75,40 +76,28 @@ div#badge {
 		}
 	}
 
-	.ribbon-wrapper {
-
-		.ribbon-wrapper-color {
-		  width: 125px;
-		  height: 150px;
-		  overflow: hidden;
-		  position: absolute;
-		  top: 0px;
-		  right: 0px;
-
-			.ribbon {
-			  display:block;
-			  text-decoration:none;
-			  font: bold 8px Sans-Serif;
-			  color: #333;
-			  text-align: center;
-			  -webkit-transform: rotate(45deg);
-			  -moz-transform:    rotate(45deg);
-			  -ms-transform:     rotate(45deg);
-			  -o-transform:      rotate(45deg);
-			  position: relative;
-			  padding: 4px 0;
-			  left: 23px;
-			  top: 20px;
-			  width: 150px;
-			  background-color: #f19322;
-			  color: #000;
-			  -webkit-box-shadow: 0px 0px 3px rgba(0,0,0,0.3);
-			  -moz-box-shadow:    0px 0px 3px rgba(0,0,0,0.3);
-			  box-shadow:         0px 0px 3px rgba(0,0,0,0.3);
-			  span.white {
-			  	color:#fff;
-			  }
-			}
-		}
+	.ribbon {
+	  display:block;
+	  text-decoration:none;
+	  font: bold 8px Sans-Serif;
+	  color: #333;
+	  text-align: center;
+	  -webkit-transform: rotate(45deg);
+	  -moz-transform:    rotate(45deg);
+	  -ms-transform:     rotate(45deg);
+	  -o-transform:      rotate(45deg);
+	  position: relative;
+	  padding: 4px 0;
+	  left: 105px;
+	  top: -370px;
+	  width: 150px;
+	  background-color: #f19322;
+	  color: #000;
+	  -webkit-box-shadow: 0px 0px 3px rgba(0,0,0,0.3);
+	  -moz-box-shadow:    0px 0px 3px rgba(0,0,0,0.3);
+	  box-shadow:         0px 0px 3px rgba(0,0,0,0.3);
+	  span.white {
+	  	color:#fff;
+	  }
 	}
 }
