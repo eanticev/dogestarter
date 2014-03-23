@@ -3,16 +3,16 @@
 		"title": "DOGESTARTER",
 		"start_date": "March 14, 2014",
 		"duration_days": 30,
-		"campaign_goal": 100000,
+		"campaign_goal": 10000000,
 		"title_background_image_url": "/assets/logo_small.png",
 		"include_powered_by_dogestarter_in_title": false,
-		"short_description": "An open-source node.js Dogecoin crowdfunding app by the team behind <a href=\"//kck.st/NLR937\" target=\"_blank\">DUELYST</a> and powered by DogeAPI",
+		"short_description": "An open-source node.js Dogecoin crowdfunding app by the team behind <a href=\"//kck.st/NLR937\" target=\"_blank\">DUELYST</a> and powered by DogeAPI.",
 		"thumbnail": "/assets/hero_image.png",
 		"location": "San Francisco, CA",
 		"youtube_video_id": "000al7ru3ms",
 		"disqus_shortname":"dogestarter",
 		"created_by": {
-			"name":"Shibetoshi Nakemoto",
+			"name":"Emil Anticevic",
 			"avatar_url":"https://lh3.googleusercontent.com/-WR9Ee9viqpg/AAAAAAAAAAI/AAAAAAAAAAA/1ueQr-wvH7Y/photo.jpg",
 			"contact_email":"eanticev@gmail.com",
 			"links":[
@@ -20,6 +20,16 @@
 					"icon":"fa-globe",
 					"title":"dogestarter.co",
 					"url":"http://dogestarter.com"
+				},
+				{
+					"icon":"fa-github",
+					"title":"github",
+					"url":"https://github.com/eanticev/dogestarter"
+				},
+				{
+					"icon":"fa-globe",
+					"title":"eanticev.com",
+					"url":"http://eanticev.com"
 				},
 				{
 					"icon":"fa-star",
@@ -33,17 +43,24 @@
 
 	"tiers": [
 		{
+			"name":"Tip Shibe",
+			"amount": 2000,
+			"backer_limit": null,
+			"description": "Support the DOGESTARTER project with a tip.",
+			"fine_print":"Estimated delivery: Dec 2014"
+		},
+		{
 			"name":"Supporter Shibe",
-			"amount": 250,
-			"backer_limit": 1000,
-			"description": "Such tier. Much reward. Wow! Support now plz. So amaze.",
+			"amount": 5000,
+			"backer_limit": null,
+			"description": "Help us develop a better open source platform for community projects. Wow!",
 			"fine_print":"Estimated delivery: Dec 2014"
 		},
 		{
 			"name":"Honored Doge",
-			"amount": 500,
+			"amount": 20000,
 			"backer_limit": 500,
-			"description": "Such tier. Much reward. Wow! Support now plz. So amaze.",
+			"description": "Get your name in the credits as an early supporter of DOGESTARTER!",
 			"fine_print":"Estimated delivery: Dec 2014"
 		}
 	],

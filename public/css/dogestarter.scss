@@ -89,7 +89,14 @@ a:hover { text-decoration:none; }
 		h2 { font-size:20px; }
 		h3 { font-size:16px; margin:2em 0 1em 0; }
 		p {
-			line-height:2em;
+			line-height:1.75em;
+			margin:1em 0;
+			font-size:16px;
+		}
+		ul li {
+			line-height:1.75em;
+			margin:0.5em 0;
+			font-size:16px;
 		}
 		h1.faq {
 			margin:30px 0;
@@ -125,6 +132,10 @@ a:hover { text-decoration:none; }
 				}
 				&:first-child {
 					width:15%;
+				}
+				.goal-dollar-equivalent {
+					display:block;
+					margin-top:10px;
 				}
 			}
 			@media (min-width: 768px) {
@@ -218,6 +229,11 @@ a:hover { text-decoration:none; }
 				h3 {
 					margin-top:0;
 					font-size:16px;
+					.tier-dollar-equivalent {
+						display:block;
+						margin-top:10px;
+						color:#666;
+					}
 				}
 				h4 {
 					font-size:14px;

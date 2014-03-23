@@ -60,8 +60,10 @@
 
 				<div id="description" class="hidden-xs">
 
-				<h1>Such Project. Much Creative.</h1>
-				<p>DOGESTARTER is an open source Node.JS app for crowdfunding your project using the crypto-currency <a href="//dogecoin.com" target="_blank">Dogecoin</a>.</p>
+				<h1>Open Source Crypto-Crowdfunding.</h1>
+				<p>DOGESTARTER is an open source Node.JS app for crowdfunding your project using the crypto-currency <a href="//dogecoin.com" target="_blank">Dogecoin</a></p>
+				<h2>Help us make it Better!</h2>
+				<p>You can clone or fork the project on <a href="https://github.com/eanticev/dogestarter">github</a> and start your own campaign. Support us on this page to help us build more tools for the DOGE community!</p>
 
 				<h2>How it works</h2>
 				<p>DOGESTARTER uses the DogeAPI service to generate a unique wallet address for each backer, and when a backer is ready to pledge, it shows them the unique address (and QRCode) to send their pledge amount to. The backer also receives an email with this unique wallet address in case they need to send their pledge offline later. These addresses are later validated and the per-customer pledge amounts are confirmed.</p>
@@ -97,14 +99,18 @@
 				<div>
 					<div id="backer_stats">
 						<h3><strong><%= pledge_count %></strong> Shibes</h3>
-						<h3><strong>Ð<span class="pledged-so-far">...</span></strong> <span class="hidden-xs">pledged</span> of Ð<%= goal %> goal</h3>
+						<h3>
+							<strong>Ð<span class="pledged-so-far">...</span></strong> <span class="hidden-xs">pledged</span> of Ð<%= goal_formatted %> goal
+							<% if (dogecoin_exhange_rate) { %><span class="small goal-dollar-equivalent">goal is $<span><%= Math.round(parseFloat(goal) * dogecoin_exhange_rate) %></span> equivalent</span><% } %>
+						</h3>
+
 						<h3><strong><%= days_remaining %></strong> days to go</h3>
 					</div>
 					<a id="pledge" href="javascript:showModal(250)">
-						<span>Make Pledge PLZ</span>
+						<span>Make DOGECOIN Pledge</span>
 						<span class="minimum">250 Ð minimum</span>
 					</a>
-					<p class="hidden-xs">This project will only be funded if at least Ð<%= goal %> is pledged by Shibe's.</p>
+					<p class="hidden-xs">This project will only be funded if at least Ð<%= goal %> is pledged by Shibes.</p>
 					<div id="created_by">
 						<img class="avatar" src="<%= content.project.created_by.avatar_url %>" />
 						<div class="project-by">project by</div>
@@ -121,7 +127,10 @@
 						<% var backer_count = (backer_counts_rows.length > i) ? backer_counts_rows[i]["backer_count"] : 0; %>
 							<li>
 								<a href="javascript:showModal(250)">
-									<h3 class="tier-title"><span class="pledge-amount"><%= content.tiers[i].amount %></span>Ð - <%= content.tiers[i].name %></h3>
+									<h3 class="tier-title">
+										<span class="pledge-amount"><%= content.tiers[i].amount %></span>Ð - <%= content.tiers[i].name %>
+										<% if (dogecoin_exhange_rate) { %><span class="small tier-dollar-equivalent"><%= content.tiers[i].amount %>Ð = $<span><%= Math.round(dogecoin_exhange_rate * content.tiers[i].amount) %></span> equivalent</span><% } %>
+									</h3>
 									<h4 class="tier-backers">
 										<span><%= backer_count %> Shibes</span>
 										<% if (content.tiers[i].backer_limit != undefined && content.tiers[i].backer_limit > 0) { %>
@@ -268,7 +277,7 @@
 	</div><!-- /.modal -->
 
 	<!-- FORK ME ON GITHUB -->
-	<a href="https://github.com/you"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://github-camo.global.ssl.fastly.net/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
+	<a href="https://github.com/eanticev/dogestarter"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://github-camo.global.ssl.fastly.net/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
 
 	<!-- LIBS / CDN VERSION -->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>

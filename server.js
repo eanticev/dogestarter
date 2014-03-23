@@ -95,15 +95,39 @@ app.get('/', function(req, res) {
 
 					renderData = {
 						content: content,
+						dogecoin_exhange_rate: null,
 						backer_counts_rows: backer_counts_result.rows,
 						pledge_count: pledge_count_result.rows[0].pledge_count,
 						start_date: startDate,
 						days_remaining: days_remaining,
-						goal: content.project.campaign_goal.formatMoney(0,'.',',')
+						goal: content.project.campaign_goal,
+						goal_formatted: content.project.campaign_goal.formatMoney(0,'.',',')
 					};
 
 					cache.put('start',renderData,30*1000); // 30 second cache
-					onComplete(renderData);
+
+					var exhange = cache.get('dogecoin_exhange_rate');
+
+					if (exhange) {
+
+						renderData["dogecoin_exhange_rate"] = exhange;
+						onComplete(renderData);
+
+					} else {
+
+						dogeAPI.getCurrentPrice(function (error, response) {
+							if(error) {
+								onComplete(renderData);
+							} else {
+								exhange = parseFloat(JSON.parse(response)["data"]["amount"]);
+								console.log("Got EXCHANGE from DogeAPI: "+exhange);
+								renderData["dogecoin_exhange_rate"] = exhange;
+								cache.put('dogecoin_exhange_rate',exhange,6*60*60*1000); // 6 hour cache
+								onComplete(renderData);
+							}
+						});
+
+					}
 
 				});
 			}
