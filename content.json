@@ -28,7 +28,7 @@
 				}
 			]
 		},
-		"analytics_code": "... <html code for google analytics or any other widget> ..."
+		"analytics_code": "<!--... <html code for google analytics or any other widget> ... -->"
 	},
 
 	"tiers": [
