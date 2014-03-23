@@ -106,7 +106,7 @@
 
 						<h3><strong><%= days_remaining %></strong> days to go</h3>
 					</div>
-					<a id="pledge" href="javascript:showModal(250)">
+					<a id="pledge" href="javascript:showModal(<%= content.tiers[0].amount %>)">
 						<span>Make DOGECOIN Pledge</span>
 						<span class="minimum">250 Ð minimum</span>
 					</a>
@@ -126,7 +126,7 @@
 						<% for (var i=0; i<content.tiers.length; i++) { %>
 						<% var backer_count = (backer_counts_rows.length > i) ? backer_counts_rows[i]["backer_count"] : 0; %>
 							<li>
-								<a href="javascript:showModal(250)">
+								<a href="javascript:showModal(<%= content.tiers[i].amount %>)">
 									<h3 class="tier-title">
 										<span class="pledge-amount"><%= content.tiers[i].amount %></span>Ð - <%= content.tiers[i].name %>
 										<% if (dogecoin_exhange_rate) { %><span class="small tier-dollar-equivalent"><%= content.tiers[i].amount %>Ð = $<span><%= Math.round(dogecoin_exhange_rate * content.tiers[i].amount) %></span> equivalent</span><% } %>
