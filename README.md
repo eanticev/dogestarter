@@ -3,6 +3,10 @@ DOGESTARTER
 
 DOGESTARTER is a Node.JS app for crowdfunding your project using the crypto-currency [Dogecoin](//dogecoin.com).
 
+Preview and support us us on [DOGESTARTER.co](//www.dogestarter.co).
+
+Also check out a [LIVE PROJECT](//duelyst.dogestarter.co) here from the [DUELYST](//kck.st/NLR937) team.
+
 Getting Started
 ---------------
 
