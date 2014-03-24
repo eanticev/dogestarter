@@ -5,7 +5,7 @@ var content = require('../content.json');
 var databaseConfig = require('../database.json');
 
 var dogeAPI = new DogeAPI({
-							apikey: content.settings.dogeApiKey,
+							apikey: content.settings.doge_api_key,
 							endpoint: 'https://dogeapi.com/'
 						});
 
