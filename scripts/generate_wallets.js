@@ -2,7 +2,7 @@
 var pg = require('pg');
 var content = require('../content.json');
 var databaseConfig = require('../database.json');
-var dogeAPIUtilities = require('./lib/doge_api_utilities.js');
+var dogeAPIUtilities = require('../lib/doge_api_utilities.js');
 
 console.log("STARTING WALLET GENERATOR");
 
