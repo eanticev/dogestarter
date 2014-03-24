@@ -11,6 +11,7 @@ var settings = require('./settings.js')
 var qrcode=require('qrcode-js');
 var cache = require('memory-cache');
 var content = require('./content.json');
+var databaseConfig = require('./database.json');
 var notifier = require('./lib/notifier.js');
 var prototypes = require('./lib/prototypes.js');
 
@@ -48,7 +49,7 @@ var auth = express.basicAuth(function(user, pass, callback) {
 
 
 // Postgres Setup
-var postgres_client = new pg.Client(process.env.DATABASE_URL || "postgres://localhost:5432/duelyst_dogecoin");
+var postgres_client = new pg.Client(process.env.DATABASE_URL || databaseConfig.dev);
 postgres_client.connect(function(err) {
   if(err) {
     return console.error('could not connect to postgres', err);
