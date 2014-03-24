@@ -1,17 +1,18 @@
 
 var pg = require('pg');
 var DogeAPI = require('dogeapi');
-var settings = require('./settings.js')
+var content = require('../content.json');
+var databaseConfig = require('../database.json');
 
 var dogeAPI = new DogeAPI({
-							apikey: settings.dogeApiKey,
+							apikey: content.settings.dogeApiKey,
 							endpoint: 'https://dogeapi.com/'
 						});
 
 console.log("STARTING VALIDATOR");
 
 // Postgres Setup
-var postgres_client = new pg.Client(process.env.DATABASE_URL || "postgres://localhost:5432/duelyst_dogecoin");
+var postgres_client = new pg.Client(process.env.DATABASE_URL || databaseConfig.dev);
 postgres_client.connect(function(err) {
 
 	if(err) {

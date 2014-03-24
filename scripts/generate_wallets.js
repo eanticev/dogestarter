@@ -1,6 +1,7 @@
 
 var pg = require('pg');
-var settings = require('./settings.js');
+var content = require('../content.json');
+var databaseConfig = require('../database.json');
 var dogeAPIUtilities = require('./lib/doge_api_utilities.js');
 
 console.log("STARTING WALLET GENERATOR");
@@ -8,7 +9,7 @@ console.log("STARTING WALLET GENERATOR");
 var i = 0;
 
 // Postgres Setup
-var postgres_client = new pg.Client(process.env.DATABASE_URL || "postgres://localhost:5432/duelyst_dogecoin");
+var postgres_client = new pg.Client(process.env.DATABASE_URL || databaseConfig.dev);
 postgres_client.connect(function(err) {
 
 	if(err) {
