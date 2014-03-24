@@ -27,25 +27,12 @@ postgres_client.connect(function(err) {
 			console.log(error);
 		} else {
 			for (var i=0; i<result.rows.length; i++) {
+
 				var address = result.rows[i]["wallet_address"];
 				var id = result.rows[i]["id"];
 				var amount = result.rows[i]["amount"];
-				// console.log("validating ("+address+")");
-				dogeAPI.getAddressReceived(address, null, function (error, response) {
-					if (error) {
-						console.log("Error validating wallet ("+address+"): "+error);
-					} else {
-						var amount_received = JSON.parse(response)["data"]["received"];
-						console.log("validated amount for address ("+address+") = "+amount_received+" ... matches amount "+amount+" = "+(amount_received == amount)+" for id:"+id);
-						if (amount_received) {
-							postgres_client.query('UPDATE pledges SET validated_wallet_amount=$1 WHERE id=$2', [amount_received,id],function(err, result) {
-								if (err) {
-									console.log("Error updating DB: "+error);
-								}
-							});
-						}
-					}
-				});
+
+				validateRow(id,address,amount);
 			}
 		}
 
@@ -53,3 +40,24 @@ postgres_client.connect(function(err) {
 	});
 
 });
+
+function validateRow(id,address,amount) {
+
+	dogeAPI.getAddressReceived(address, null, function (error, response) {
+
+		if (error) {
+			console.log("Error validating wallet ("+address+"): "+error);
+		} else {
+			var amount_received = JSON.parse(response)["data"]["received"];
+			console.log("validated amount for address ("+address+") = "+amount_received+" ... matches amount "+amount+" = "+(amount_received == amount)+" for id:"+id);
+			if (amount_received) {
+				postgres_client.query('UPDATE pledges SET validated_wallet_amount=$1 WHERE id=$2', [amount_received,id],function(err, result) {
+					if (err) {
+						console.log("Error updating DB: "+error);
+					}
+				});
+			}
+		}
+
+	});
+}
