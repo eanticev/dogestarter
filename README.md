@@ -37,6 +37,8 @@ db-migrate
 
 This will create two tables: *pledges* and *wallets*.
 
+**HEROKU note:** If you are using Heroku, you should not need to provide a prod database url in `database.json` at all. I believe the **db-migrate** library will automatically pick it up.
+
 ### Step 2: DogeAPI setup
 
 You will also need a **DogeAPI** account, which is a wallet service. [Sign up for DogeAPI](https://www.dogeapi.com)
