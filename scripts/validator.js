@@ -31,10 +31,14 @@ postgres_client.connect(function(err) {
 				var id = result.rows[i]["id"];
 				// console.log("validating ("+address+")");
 				dogeAPI.getAddressReceived(address, null, function (error, response) {
-					var amount_received = JSON.parse(response)["data"]["received"];
-					console.log("validated amount for address ("+address+") = "+amount_received);
-					if (amount_received) {
-						postgres_client.query('UPDATE pledges SET validated_wallet_amount=$1,validated=true WHERE id=$2', [amount_received,id],function(err, result) {});
+					if (error) {
+						console.log("Error validating wallet ("+address+"): "+error);
+					} else {
+						var amount_received = JSON.parse(response)["data"]["received"];
+						console.log("validated amount for address ("+address+") = "+amount_received);
+						if (amount_received) {
+							postgres_client.query('UPDATE pledges SET validated_wallet_amount=$1,validated=true WHERE id=$2', [amount_received,id],function(err, result) {});
+						}
 					}
 				});
 			}
