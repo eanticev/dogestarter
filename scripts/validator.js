@@ -13,6 +13,7 @@ console.log("STARTING VALIDATOR");
 
 // Postgres Setup
 var postgres_client = new pg.Client(process.env.DATABASE_URL || databaseConfig.dev);
+
 postgres_client.connect(function(err) {
 
 	if(err) {
@@ -32,16 +33,14 @@ postgres_client.connect(function(err) {
 				var id = result.rows[i]["id"];
 				var amount = result.rows[i]["amount"];
 
-				validateRow(id,address,amount);
+				validateRow(id,address,amount,(i==result.rows.length-1));
 			}
 		}
-
-		postgres_client.end();
 	});
 
 });
 
-function validateRow(id,address,amount) {
+function validateRow(id,address,amount,disconnectOnEnd) {
 
 	dogeAPI.getAddressReceived(address, null, function (error, response) {
 
@@ -50,12 +49,16 @@ function validateRow(id,address,amount) {
 		} else {
 			var amount_received = JSON.parse(response)["data"]["received"];
 			console.log("validated amount for address ("+address+") = "+amount_received+" ... matches amount "+amount+" = "+(amount_received == amount)+" for id:"+id);
-			if (amount_received) {
-				postgres_client.query('UPDATE pledges SET validated_wallet_amount=$1 WHERE id=$2', [amount_received,id],function(err, result) {
+			if (amount_received != undefined) {
+				postgres_client.query('UPDATE pledges SET validated_wallet_amount=$1 WHERE id=$2 RETURNING id', [amount_received,id],function(err, result) {
 					if (err) {
 						console.log("Error updating DB: "+error);
 					}
 				});
+				if (disconnectOnEnd) {
+					console.log("DONE... Disconnecting from DB");
+					postgres_client.end();
+				}
 			}
 		}
 
