@@ -56,8 +56,8 @@ function validateRow(id,address,amount,disconnectOnEnd) {
 					}
 				});
 				if (disconnectOnEnd) {
-					console.log("DONE... Disconnecting from DB");
-					postgres_client.end();
+					// console.log("DONE... Disconnecting from DB");
+					// postgres_client.end();
 				}
 			}
 		}
