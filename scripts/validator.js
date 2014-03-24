@@ -36,7 +36,7 @@ postgres_client.connect(function(err) {
 						console.log("Error validating wallet ("+address+"): "+error);
 					} else {
 						var amount_received = JSON.parse(response)["data"]["received"];
-						console.log("validated amount for address ("+address+") = "+amount_received+" ... matches amount "+amount+" = "+(amount_received == amount));
+						console.log("validated amount for address ("+address+") = "+amount_received+" ... matches amount "+amount+" = "+(amount_received == amount)+" for id:"+id);
 						if (amount_received) {
 							postgres_client.query('UPDATE pledges SET validated_wallet_amount=$1 WHERE id=$2', [amount_received,id],function(err, result) {
 								if (err) {

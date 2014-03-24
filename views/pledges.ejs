@@ -47,7 +47,7 @@
 					  		<td><%= rows[i].email %></td>
 					  		<td><%= rows[i].wallet_address %></td>
 					  		<td><%= rows[i].amount %></td>
-					  		<td><%= rows[i].validated_wallet_amount %></td>
+					  		<td><%= rows[i].validated_wallet_amount || "0" %></td>
 					  		<td><%= rows[i].tier %></td>
 					  		<td><%= rows[i].created_at %></td>
 					  	</tr>
