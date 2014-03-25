@@ -46,7 +46,7 @@
 		<section id="home" class="container content-section tab-pane active">
 			<div id="content_area" class="col-md-8">
 				<div id="video">
-					<a href="javascript:playVideo()" id="hero_video_link">
+					<a href="javascript:void(playVideo())" id="hero_video_link">
 						<img src="/assets/hero_image.png" width="100%" />
 						<span>click to play</span>
 					</a>
@@ -55,7 +55,7 @@
 					</div>
 				</div>
 				<div id="share_utilities" class="hidden-xs">
-					<a href="javascript:$('#embed_modal').modal();"><i class="fa fa-code"></i> embed</a>
+					<a href="javascript:void($('#embed_modal').modal())"><i class="fa fa-code"></i> embed</a>
 				</div>
 
 				<div id="description" class="hidden-xs">
@@ -69,7 +69,7 @@
 				<p>DOGESTARTER uses the DogeAPI service to generate a unique wallet address for each backer, and when a backer is ready to pledge, it shows them the unique address (and QRCode) to send their pledge amount to. The backer also receives an email with this unique wallet address in case they need to send their pledge offline later. These addresses are later validated and the per-customer pledge amounts are confirmed.</p>
 
 				<h2>What's included</h2>
-				<p>The source code, <a href="javascript:$('#embed_modal').modal();">embeds</a>, email notifications, QR Codes, pledge tracking and validation, and our sweet logo PSDs.</p>
+				<p>The source code, <a href="javascript:void($('#embed_modal').modal())">embeds</a>, email notifications, QR Codes, pledge tracking and validation, and our sweet logo PSDs.</p>
 				
 				<h2>Getting Started</h2>
 				<p>It takes about 30 minutes to set up your own DOGESTARTER. You can get the source code from <a href="">Dogestarter on GitHub</a>. From there, follow the instructions on how to get up and running.</p>
@@ -86,7 +86,7 @@
 				<ol class="faq-list">
 					<% for (var i=0; i<content.faq.length; i++) { %>
 						<li>
-							<h4><a href="javascript:void" class="faq-link"><i class="fa fa-caret-right"></i> <%= content.faq[i].question %></a></h4>
+							<h4><a href="javascript:void(0)" class="faq-link"><i class="fa fa-caret-right"></i> <%= content.faq[i].question %></a></h4>
 							<p><%- content.faq[i].answer %></p>
 						</li>
 					<% } %>
@@ -106,7 +106,7 @@
 
 						<h3><strong><%= days_remaining %></strong> days to go</h3>
 					</div>
-					<a id="pledge" href="javascript:showModal(<%= content.tiers[0].amount %>)">
+					<a id="pledge" href="javascript:void(showModal(<%= content.tiers[0].amount %>))">
 						<span>Make DOGECOIN Pledge</span>
 						<span class="minimum">250 Ð minimum</span>
 					</a>
@@ -126,7 +126,7 @@
 						<% for (var i=0; i<content.tiers.length; i++) { %>
 						<% var backer_count = (backer_counts_rows.length > i) ? backer_counts_rows[i]["backer_count"] : 0; %>
 							<li>
-								<a href="javascript:showModal(<%= content.tiers[i].amount %>)">
+								<a href="javascript:void(showModal(<%= content.tiers[i].amount %>))">
 									<h3 class="tier-title">
 										<span class="pledge-amount"><%= content.tiers[i].amount %></span>Ð - <%= content.tiers[i].name %>
 										<% if (dogecoin_exhange_rate) { %><span class="small tier-dollar-equivalent"><%= content.tiers[i].amount %>Ð = $<span><%= Math.round(dogecoin_exhange_rate * content.tiers[i].amount) %></span> equivalent</span><% } %>
